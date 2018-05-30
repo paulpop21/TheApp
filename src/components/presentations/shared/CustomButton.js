@@ -1,0 +1,49 @@
+import React from 'react';
+import PropTypes from 'prop-types';
+import {
+  TouchableOpacity,
+  Text,
+  StyleSheet
+} from 'react-native';
+
+const CustomButton = ({ buttonText, onPressHandle, customButtonStyle, customTextStyle }) => {
+  return (
+    <TouchableOpacity
+      style={ [ styles.button, customButtonStyle ] }
+      activeOpacity={ 0.7 }
+      onPress={ onPressHandle }
+    >
+      <Text style={ [ styles.buttonText, customTextStyle ] }>{ buttonText }</Text>
+    </TouchableOpacity>
+  );
+};
+
+CustomButton.propTypes = {
+  buttonText: PropTypes.string.isRequired,
+  onPressHandle: PropTypes.func.isRequired,
+  customButtonStyle: PropTypes.object,
+  customTextStyle: PropTypes.object,
+};
+
+CustomButton.defaultProps = {
+  customButtonStyle: {},
+  customTextStyle: {},
+};
+
+const styles = StyleSheet.create({
+  button: {
+    backgroundColor: '#C70039',
+    width: 180,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginVertical: 10,
+    paddingVertical: 10,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: '#fff'
+  },
+});
+
+export default CustomButton;
