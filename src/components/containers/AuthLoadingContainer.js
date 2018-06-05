@@ -15,10 +15,9 @@ export default class AuthLoadingContainer extends Component {
   }
 
   _isLoggedInAsync = async () => {
-    const userToken = await AsyncStorage.getItem('userEmail');
-    console.log(userToken);
+    const user = await AsyncStorage.getItem('user');
 
-    this.props.navigation.navigate(userToken ? 'App' : 'Auth');
+    this.props.navigation.navigate(user ? 'App' : 'Auth');
   };
 
   render() {

@@ -2,10 +2,14 @@ import React from 'react';
 
 import UserAuthContainer from '../containers/UserAuthContainer';
 
-const UserAuthScreen = (props) => {
-  return (
-    <UserAuthContainer navigation={ props.navigation } />
-  );
-};
+export default class UserAuthScreen extends React.Component {
+  static navigationOptions = ({ navigation }) => ({
+    title: `${ navigation.state.params.screenTitle }`
+  });
 
-export default UserAuthScreen;
+  render() {
+    return (
+      <UserAuthContainer navigation={ this.props.navigation } />
+    );
+  }
+}

@@ -1,9 +1,12 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import {
   StyleSheet,
   Text,
-  KeyboardAvoidingView, TextInput, View,
+  KeyboardAvoidingView,
+  View,
+  ActivityIndicator,
+  StatusBar,
 } from 'react-native';
 
 import CustomInput from './shared/CustomInput';
@@ -25,7 +28,14 @@ const validate = values => {
   return errors;
 };
 
-const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFocus }) => {
+const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFocus, isLoading }) => {
+  if (isLoading) {
+    return [
+      <ActivityIndicator key='ActivityIndicator' />,
+      <StatusBar key='StatusBar' barStyle="default" />
+    ];
+  }
+
   return (
     <KeyboardAvoidingView style={ styles.container } behavior="padding" enabled>
       <View>
@@ -37,6 +47,8 @@ const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFo
         placeholder='Enter your username'
         keyboardType='email-address'
         returnKeyType='next'
+        autoCapitalize='none'
+        underlineColorAndroid='transparent'
         onSubmitEditing={ handleInputFocus }
       />
       <Field
@@ -46,11 +58,12 @@ const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFo
         keyboardType='default'
         secureTextEntry
         returnKeyType='done'
+        autoCapitalize='none'
+        underlineColorAndroid='transparent'
         onSubmitEditing={ handleSubmit }
         refName={ passwordRef }
         withRef={ true }
       />
-      <TextInput />
       <CustomButton
         buttonText={ buttonTitle }
         onPressHandle={ handleSubmit }
@@ -77,5 +90,5 @@ const styles = StyleSheet.create({
 
 export default reduxForm({
   form: 'auth',
-  validate
+  validate,
 })(AuthForm);

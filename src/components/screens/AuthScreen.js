@@ -2,10 +2,15 @@ import React from 'react';
 
 import AuthenticationContainer from '../containers/AuthenticationContainer';
 
-const AuthScreen = (props) => {
-  return (
-    <AuthenticationContainer navigation={ props.navigation } />
-  );
-};
+export default class AuthScreen extends React.Component {
+  static navigationOptions = () => ({
+    title: 'TheApp',
+    headerBackTitle: 'Back'
+  });
 
-export default AuthScreen;
+  render() {
+    return (
+      <AuthenticationContainer navigation={ this.props.navigation } />
+    );
+  }
+}

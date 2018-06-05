@@ -1,32 +1,39 @@
 import React, { Component } from 'react';
-import { AsyncStorage } from 'react-native';
-import firebase from 'react-native-firebase';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import { SubmissionError } from 'redux-form';
 
 import AuthForm from '../presentations/AuthForm';
-import { LOGIN_SCREEN } from '../../constants/navigation';
 
-export default class UserAuthContainer extends Component {
+import * as userActions from '../../actions/user';
+import { LOGIN_SCREEN } from '../../constants/navigation';
+import { USER_LOGIN_ERROR } from '../../constants/actionTypes';
+
+class UserAuthContainer extends Component {
   constructor(props) {
     super(props);
 
     this.myRef = React.createRef();
   }
 
-  _handleSubmit = async ({ email, password }) => {
+  static navigationOptions = ({ navigation }) => ({
+    title: `${ navigation.state.params.screenTitle }`,
+  });
+
+  _handleSubmit = async (credentials) => {
     const { navigation: { state: { params } } } = this.props;
 
     try {
       if (params.screenName === LOGIN_SCREEN) {
-        await firebase.auth().signInAndRetrieveDataWithEmailAndPassword(email, password)
+        await this.props.loginUser(credentials);
       } else {
-        await firebase.auth().createUserAndRetrieveDataWithEmailAndPassword(email, password);
-        }
-
-      await AsyncStorage.setItem('userEmail', email);
+        await this.props.registerUser(credentials);
+      }
 
       this.props.navigation.navigate('App');
     } catch (error) {
-      console.log(error);
+      if (error.type === USER_LOGIN_ERROR)
+        throw new SubmissionError({ password: 'Invalid Credentials' });
     }
   };
 
@@ -35,16 +42,32 @@ export default class UserAuthContainer extends Component {
   };
 
   render() {
-    const { navigation: { state: { params } } } = this.props;
+    const { isLoading, navigation: { state: { params } } } = this.props;
+    const formType = params.screenName === LOGIN_SCREEN ? 'Login' : 'SignUp';
 
     return (
       <AuthForm
-        title={ params.screenName === LOGIN_SCREEN ? 'Login to TheApp' : 'SignUp to TheApp' }
-        buttonTitle={ params.screenName === LOGIN_SCREEN ? 'Login' : 'SignUp' }
+        title={ `${ formType } to TheApp` }
+        buttonTitle={ formType }
         onSubmit={ this._handleSubmit }
         passwordRef={ this.myRef }
+        isLoading={ isLoading }
         handleInputFocus={ this._handleInputFocus }
       />
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    isLoading: state.user.loading
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    ...userActions,
+  }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(UserAuthContainer);
