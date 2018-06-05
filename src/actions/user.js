@@ -1,6 +1,8 @@
+import { USER_LOGIN_REQUEST, USER_REGISTER_REQUEST, USER_LOGOUT } from '../constants/actionTypes';
+
 export function loginUser (credentials) {
   return {
-    type: 'user/LOGIN',
+    type: USER_LOGIN_REQUEST,
     payload: {
       request: {
         method: 'post',
@@ -13,7 +15,7 @@ export function loginUser (credentials) {
 
 export function registerUser (credentials) {
   return {
-    type: 'user/REGISTER',
+    type: USER_REGISTER_REQUEST,
     payload: {
       request: {
         method: 'post',
@@ -26,6 +28,6 @@ export function registerUser (credentials) {
 
 export function logutUser () {
   return {
-    type: 'user/LOGOUT',
+    type: USER_LOGOUT,
   };
 }
