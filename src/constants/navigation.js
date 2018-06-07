@@ -1,3 +1,7 @@
+// Stacks
+export const APP_STACK = 'App';
+export const AUTH_STACK = 'Auth';
+
 // Screen names
 export const REGISTER_SCREEN = 'RegisterScreen';
 export const LOGIN_SCREEN = 'LoginScreen';

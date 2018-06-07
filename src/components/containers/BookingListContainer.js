@@ -5,11 +5,10 @@ import {
   StyleSheet,
   SafeAreaView,
   FlatList,
-  ActivityIndicator,
-  StatusBar
 } from 'react-native';
 
 import BookingListItem from '../presentations/BookingListItem';
+import Loading from '../presentations/shared/Loading';
 
 import * as carActions from '../../actions/car';
 
@@ -17,7 +16,6 @@ import { BOOKINGS_DETAILS_SCREEN } from '../../constants/navigation';
 
 class BookingListContainer extends Component {
   componentDidMount() {
-    console.log('props', this.props);
     this.props.getAllCars();
   }
 
@@ -30,10 +28,7 @@ class BookingListContainer extends Component {
     const { car: { carsList, loading } } = this.props;
 
     if (loading) {
-      return [
-        <ActivityIndicator key='ActivityIndicator' />,
-        <StatusBar key='StatusBar' barStyle='default' />
-      ];
+      return <Loading />
     }
 
     return (
@@ -55,9 +50,9 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ car }) => {
   return {
-    car: state.car
+    car
   };
 };
 

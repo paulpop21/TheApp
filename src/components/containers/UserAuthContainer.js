@@ -6,7 +6,8 @@ import { SubmissionError } from 'redux-form';
 import AuthForm from '../presentations/AuthForm';
 
 import * as userActions from '../../actions/user';
-import { LOGIN_SCREEN } from '../../constants/navigation';
+
+import { APP_STACK, LOGIN_SCREEN } from '../../constants/navigation';
 import { USER_LOGIN_ERROR } from '../../constants/actionTypes';
 
 class UserAuthContainer extends Component {
@@ -30,19 +31,19 @@ class UserAuthContainer extends Component {
         await this.props.registerUser(credentials);
       }
 
-      this.props.navigation.navigate('App');
+      this.props.navigation.navigate(APP_STACK);
     } catch (error) {
       if (error.type === USER_LOGIN_ERROR)
         throw new SubmissionError({ password: 'Invalid Credentials' });
     }
   };
 
-  _handleInputFocus = async () => {
+  _handleInputFocus = () => {
     this.myRef.current.focus();
   };
 
   render() {
-    const { isLoading, navigation: { state: { params } } } = this.props;
+    const { loading, navigation: { state: { params } } } = this.props;
     const formType = params.screenName === LOGIN_SCREEN ? 'Login' : 'SignUp';
 
     return (
@@ -51,16 +52,16 @@ class UserAuthContainer extends Component {
         buttonTitle={ formType }
         onSubmit={ this._handleSubmit }
         passwordRef={ this.myRef }
-        isLoading={ isLoading }
+        isLoading={ loading }
         handleInputFocus={ this._handleInputFocus }
       />
     );
   }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = ({ user: { loading } }) => {
   return {
-    isLoading: state.user.loading
+    loading
   };
 };
 

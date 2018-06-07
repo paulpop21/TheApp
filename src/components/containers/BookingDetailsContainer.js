@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import {
+  AlertIOS,
   Platform,
   DatePickerAndroid,
   TimePickerAndroid
@@ -7,7 +10,9 @@ import {
 
 import BookingDetails from '../presentations/bookingDetails/BookingDetails';
 
-export default class BookingDetailsContainer extends Component {
+import * as bookingActions from '../../actions/booking';
+
+class BookingDetailsContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -58,15 +63,30 @@ export default class BookingDetailsContainer extends Component {
     });
   };
 
-  _handleSubmit = () => {
-    console.log('test');
+  _handleSubmit = async () => {
+    try {
+      const { navigation } = this.props;
+      const { startDate, endDate } = this.state;
 
-    if (this.state.startDate - this.state.endDate > 0) {
-      alert('End date should grater then Start Date')
+      if (startDate - endDate > 0) {
+        Platform.OS === 'ios' ? AlertIOS.alert('End date should grater then Start Date') :
+          alert('End date should grater then Start Date');
+      } else {
+        await this.props.createBooking({
+          startDate,
+          endDate,
+          car: navigation.state.params.selectedCar._id
+        });
+
+        Platform.OS === 'ios' ? AlertIOS.alert('Your booking has been successfully created') :
+          alert('Your booking has been successfully created');
+
+        navigation.goBack();
+      }
+    } catch (e) {
+      Platform.OS === 'ios' ? AlertIOS.alert('Something went wrong. Please try again.') :
+        alert('Something went wrong. Please try again.');
     }
-
-
-    // TODO: Add call for create booking
   };
 
   render() {
@@ -83,3 +103,12 @@ export default class BookingDetailsContainer extends Component {
     );
   }
 }
+
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    ...bookingActions,
+  }, dispatch);
+};
+
+export default connect(undefined, mapDispatchToProps)(BookingDetailsContainer);

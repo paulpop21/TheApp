@@ -1,30 +1,29 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import {
-  ActivityIndicator,
-  AsyncStorage,
-  StatusBar,
   StyleSheet,
   SafeAreaView,
 } from 'react-native';
 
-export default class AuthLoadingContainer extends Component {
+import Loading from '../presentations/shared/Loading';
+
+import { APP_STACK , AUTH_STACK } from '../../constants/navigation';
+
+class AuthLoadingContainer extends Component {
   constructor(props) {
     super(props);
 
-    this._isLoggedInAsync();
+    this._isLoggedIn();
   }
 
-  _isLoggedInAsync = async () => {
-    const user = await AsyncStorage.getItem('user');
-
-    this.props.navigation.navigate(user ? 'App' : 'Auth');
+  _isLoggedIn = () => {
+    this.props.navigation.navigate(this.props.user ? APP_STACK : AUTH_STACK);
   };
 
   render() {
     return (
       <SafeAreaView style={styles.container}>
-        <ActivityIndicator />
-        <StatusBar barStyle="default" />
+        <Loading />
       </SafeAreaView>
     );
   }
@@ -38,3 +37,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   }
 });
+
+const mapStateToProps = ({ user: { user } }) => {
+  return {
+    user
+  }
+};
+
+export default connect(mapStateToProps)(AuthLoadingContainer);

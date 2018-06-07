@@ -6,6 +6,8 @@ import { DrawerItems, SafeAreaView } from 'react-navigation';
 
 import * as userActions from '../../actions/user';
 
+import { AUTH_STACK } from '../../constants/navigation';
+
 const CustomDrawerContentComponent = (props) => (
   <SafeAreaView style={ styles.container } forceInset={{ horizontal: 'never' }}>
     <DrawerItems {...props} />
@@ -14,7 +16,7 @@ const CustomDrawerContentComponent = (props) => (
         style={ styles.button }
         onPress={() => {
           props.logutUser();
-          props.navigation.navigate('Auth');
+          props.navigation.navigate(AUTH_STACK);
         }}
       >
         <View style={ styles.item }>
