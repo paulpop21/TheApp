@@ -3,27 +3,23 @@ import PropTypes from 'prop-types';
 import {
   Image,
   View,
-  TouchableHighlight,
+  TouchableOpacity,
   StyleSheet,
 } from 'react-native';
 
 const HeaderComponent = ({ navigation }) => {
   return (
-    <View
-      style={ styles.headerContainer }
+    <TouchableOpacity
+      style={ styles.headerButton }
+      onPress={() => {
+        navigation.openDrawer();
+      }}
     >
-      <TouchableHighlight
-        style={ styles.headerButton }
-        onPress={() => {
-          navigation.openDrawer();
-        }}
-      >
-        <Image
-          source={require('../../../assets/images/icons/menu-icon.png')}
-          style={ styles.headerIcon }
-        />
-      </TouchableHighlight>
-    </View>
+      <Image
+        source={ require('../../../assets/images/icons/menu-icon.png') }
+        style={ styles.headerIcon }
+      />
+    </TouchableOpacity>
   );
 };
 
@@ -32,12 +28,6 @@ HeaderComponent.propTypes = {
 };
 
 const styles = StyleSheet.create({
-  headerContainer: {
-    height: 90,
-    flexDirection: 'row',
-    justifyContent: 'flex-start',
-    alignItems: 'center',
-  },
   headerButton: {
     marginLeft: 10,
   },

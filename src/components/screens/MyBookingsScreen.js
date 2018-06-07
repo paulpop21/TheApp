@@ -11,27 +11,17 @@ import {
 import NavigationHeader from '../presentations/shared/NavigationHeader';
 
 export default class MyBookingsScreen extends Component {
-  static navigationOptions = () => {
+  static navigationOptions = ({ navigation }) => {
     return {
-      drawerLabel: 'My Bookings',
-      drawerIcon() {
-        return (
-          <Image
-            source={require('../../assets/images/icons/booking.png')}
-            style={{
-              height: 26,
-              width: 26,
-            }}
-          />
-        );
-      },
+      title: 'My Bookings',
+      headerLeft: <NavigationHeader navigation={ navigation } />,
+      headerBackTitle: 'Back',
     };
   };
 
   render() {
     return (
       <SafeAreaView style={ styles.container }>
-        <NavigationHeader { ...this.props } />
         <Text>Cars Screen</Text>
       </SafeAreaView>
     );

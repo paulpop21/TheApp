@@ -1,46 +1,20 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  SafeAreaView,
-  View,
-  ScrollView
-} from 'react-native';
 
+import BookingListContainer from '../containers/BookingListContainer';
 import NavigationHeader from '../presentations/shared/NavigationHeader';
 
 export default class BookingsScreen extends Component {
-  static navigationOptions = () => {
+  static navigationOptions = ({ navigation }) => {
     return {
-      drawerLabel: 'Bookings',
-      drawerIcon() {
-        return (
-          <Image
-            source={require('../../assets/images/icons/traffic.png')}
-            style={{
-              height: 26,
-              width: 26,
-            }}
-          />
-        );
-      },
+      title: 'Bookings',
+      headerLeft: <NavigationHeader navigation={ navigation } />,
+      headerBackTitle: 'Back',
     };
   };
 
   render() {
     return (
-      <SafeAreaView style={ styles.container }>
-        <NavigationHeader { ...this.props } />
-        <Text>Bookings Screen</Text>
-      </SafeAreaView>
+      <BookingListContainer { ...this.props } />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-});

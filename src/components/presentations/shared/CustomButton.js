@@ -6,12 +6,13 @@ import {
   StyleSheet
 } from 'react-native';
 
-const CustomButton = ({ buttonText, onPressHandle, customButtonStyle, customTextStyle }) => {
+const CustomButton = ({ buttonText, onPressHandle, customButtonStyle, customTextStyle, ...props }) => {
   return (
     <TouchableOpacity
       style={ [ styles.button, customButtonStyle ] }
       activeOpacity={ 0.7 }
       onPress={ onPressHandle }
+      { ...props }
     >
       <Text style={ [ styles.buttonText, customTextStyle ] }>{ buttonText }</Text>
     </TouchableOpacity>

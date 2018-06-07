@@ -5,12 +5,11 @@ import {
   Text,
   KeyboardAvoidingView,
   View,
-  ActivityIndicator,
-  StatusBar,
 } from 'react-native';
 
 import CustomInput from './shared/CustomInput';
 import CustomButton from './shared/CustomButton';
+import Loading from './shared/Loading';
 
 const validate = values => {
   const errors = {};
@@ -30,10 +29,7 @@ const validate = values => {
 
 const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFocus, isLoading }) => {
   if (isLoading) {
-    return [
-      <ActivityIndicator key='ActivityIndicator' />,
-      <StatusBar key='StatusBar' barStyle="default" />
-    ];
+    return <Loading />;
   }
 
   return (
