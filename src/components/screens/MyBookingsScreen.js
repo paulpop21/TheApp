@@ -1,13 +1,6 @@
 import React, { Component } from 'react';
-import {
-  StyleSheet,
-  Text,
-  Image,
-  SafeAreaView,
-  View,
-  ScrollView
-} from 'react-native';
 
+import MyBookingListContainer from '../containers/MyBookingListContainer';
 import NavigationHeader from '../presentations/shared/NavigationHeader';
 
 export default class MyBookingsScreen extends Component {
@@ -21,16 +14,7 @@ export default class MyBookingsScreen extends Component {
 
   render() {
     return (
-      <SafeAreaView style={ styles.container }>
-        <Text>Cars Screen</Text>
-      </SafeAreaView>
+      <MyBookingListContainer { ...this.props } />
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#F5FCFF',
-  },
-});

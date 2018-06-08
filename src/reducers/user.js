@@ -2,17 +2,8 @@ import { AsyncStorage } from 'react-native';
 
 import * as actionTypes from '../constants/actionTypes';
 
-const getUserFromStorage = async () => {
-  const user = await AsyncStorage.getItem('user');
-
-  if (user)
-    return JSON.parse(user);
-
-  return null;
-};
-
 const defaultState = {
-  user: getUserFromStorage(),
+  userDetails: null,
   loading: false,
 };
 
@@ -28,18 +19,25 @@ export default function userReducer (state = defaultState, action) {
 
     case actionTypes.USER_LOGIN_SUCCESS:
     case actionTypes.USER_REGISTER_SUCCESS: {
-      const user = {
+      const userDetails = {
         ...action.payload.data,
         authToken: action.payload.headers['x-auth-token']
       };
 
-      AsyncStorage.setItem('user', JSON.stringify(user));
+      AsyncStorage.setItem('user', JSON.stringify(userDetails));
 
       return {
         ...state,
-        user,
+        userDetails,
         loading: false,
       };
+    }
+
+    case actionTypes.USER_SET_USER_DETAILS: {
+      return {
+        ...state,
+        userDetails: action.payload.userDetails,
+      }
     }
 
     case actionTypes.USER_LOGIN_ERROR:

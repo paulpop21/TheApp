@@ -94,7 +94,7 @@ const routeConfig = {
 };
 
 const drawerNavigatorConfig = {
-  initialRouteName: BOOKINGS_SCREEN,
+  initialRouteName: MY_BOOKINGS_SCREEN,
   drawerWidth: width / 2,
   drawerPosition: 'left',
   contentComponent: CustomDrawerContentComponent,

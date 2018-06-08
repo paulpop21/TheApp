@@ -109,7 +109,8 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold' ,
-    fontSize: 16
+    fontSize: 16,
+    color: '#05a5d1',
   },
   rowContentContainer: {
     flex: 1,

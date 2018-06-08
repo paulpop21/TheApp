@@ -1,4 +1,4 @@
-import { USER_LOGIN_REQUEST, USER_REGISTER_REQUEST, USER_LOGOUT } from '../constants/actionTypes';
+import { USER_LOGIN_REQUEST, USER_REGISTER_REQUEST, USER_LOGOUT, USER_SET_USER_DETAILS } from '../constants/actionTypes';
 
 export function loginUser (credentials) {
   return {
@@ -29,5 +29,14 @@ export function registerUser (credentials) {
 export function logutUser () {
   return {
     type: USER_LOGOUT,
+  };
+}
+
+export function setUserDetails (userDetails) {
+  return {
+    type: USER_SET_USER_DETAILS,
+    payload: {
+      userDetails
+    }
   };
 }

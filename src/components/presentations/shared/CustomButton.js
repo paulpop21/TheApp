@@ -33,7 +33,7 @@ CustomButton.defaultProps = {
 
 const styles = StyleSheet.create({
   button: {
-    backgroundColor: '#C70039',
+    backgroundColor: '#001f25',
     width: 180,
     height: 40,
     alignItems: 'center',
@@ -43,7 +43,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   buttonText: {
-    color: '#fff'
+    color: '#05a5d1',
+    fontWeight: 'bold',
   },
 });
 

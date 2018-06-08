@@ -46,7 +46,7 @@ class CustomInput extends Component {
 
 const styles = StyleSheet.create({
   input: {
-    borderColor: '#C70039',
+    borderColor: '#001f25',
     width: 200,
     height: 40,
     marginVertical: 10,
