@@ -8,11 +8,13 @@ import {
 } from 'react-native';
 
 import BookingListItem from '../presentations/BookingListItem';
+import BookingListSectionHeader from '../presentations/BookingListSectionHeader';
 import Loading from '../presentations/shared/Loading';
 
 import * as bookingActions from '../../actions/booking';
 
 import { BOOKINGS_DETAILS_SCREEN } from '../../constants/navigation';
+import { BOOKING_TYPE_UPCOMING } from "../../constants/booking";
 
 class MyBookingListContainer extends Component {
   componentDidMount() {
@@ -20,8 +22,13 @@ class MyBookingListContainer extends Component {
   }
 
 
-  _handleSelectBooking = (selectedCar) => {
-    this.props.navigation.navigate(BOOKINGS_DETAILS_SCREEN, { selectedCar });
+  _handleSelectBooking = (selectedBooking, bookingType) => {
+    this.props.navigation.navigate(
+      BOOKINGS_DETAILS_SCREEN,
+      {
+        selectedBooking,
+        bookingType,
+      });
   };
 
   render() {
@@ -35,16 +42,16 @@ class MyBookingListContainer extends Component {
       <SafeAreaView style={ styles.container }>
         <SectionList
           sections={ bookingsList }
-          renderItem={({ item, index, section }) => <BookingListItem item={ item.car } handleSelectBooking={ this._handleSelectBooking } />}
-          renderSectionHeader={({section: {title}}) => (
-            <React.Fragment>
-              {/*<View style={{ height: 1, backgroundColor: '#000' }}/>*/}
-              <View
-                style={{ justifyContent: 'center', alignItems: 'center', height: 70, backgroundColor: '#001f25' }}
-              >
-                <Text style={{fontWeight: 'bold', color: '#05a5d1'}}>{title}</Text>
-              </View>
-            </React.Fragment>
+          renderItem={({ item, index, section }) => (
+            <BookingListItem
+              isEditable={ section.title === BOOKING_TYPE_UPCOMING }
+              booking={ item }
+              bookingType={ section.title }
+              handleSelectBooking={ this._handleSelectBooking }
+            />
+          )}
+          renderSectionHeader={({ section: { title } }) => (
+           <BookingListSectionHeader title={ title } />
           )}
           keyExtractor={ item => item._id }
         />

@@ -7,7 +7,7 @@ const defaultState = {
   loading: false,
 };
 
-export default function userReducer (state = defaultState, action) {
+export default async function userReducer (state = defaultState, action) {
   switch (action.type) {
     case actionTypes.USER_LOGIN_REQUEST:
     case actionTypes.USER_REGISTER_REQUEST: {
@@ -24,7 +24,11 @@ export default function userReducer (state = defaultState, action) {
         authToken: action.payload.headers['x-auth-token']
       };
 
-      AsyncStorage.setItem('user', JSON.stringify(userDetails));
+      try {
+        await AsyncStorage.setItem('user', JSON.stringify(userDetails));
+      } catch (e) {
+        console.warn(e);
+      }
 
       return {
         ...state,
@@ -49,7 +53,11 @@ export default function userReducer (state = defaultState, action) {
     }
 
     case actionTypes.USER_LOGOUT: {
-      AsyncStorage.clear();
+      try {
+        await AsyncStorage.clear();
+      } catch (e) {
+        console.warn(e);
+      }
 
       return {
         ...defaultState

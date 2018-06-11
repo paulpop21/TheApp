@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import {
   View,
   Text,
@@ -6,12 +6,11 @@ import {
   StyleSheet
 } from 'react-native'
 
-const BookingDetailsDatePicker = ({ title, dateType, date, handleOpenDatePicker }) => (
-  <View
-    style={ styles.container }
-  >
+const BookingDetailsDatePicker = ({ title, disabled, dateType, date, handleOpenDatePicker }) => (
+  <View style={ styles.container }>
     <Text>{ title }</Text>
     <TouchableOpacity
+      disabled={ disabled }
       onPress={() => handleOpenDatePicker(dateType) }
     >
       <Text

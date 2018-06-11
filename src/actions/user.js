@@ -1,4 +1,9 @@
-import { USER_LOGIN_REQUEST, USER_REGISTER_REQUEST, USER_LOGOUT, USER_SET_USER_DETAILS } from '../constants/actionTypes';
+import {
+  USER_LOGIN_REQUEST,
+  USER_REGISTER_REQUEST,
+  USER_LOGOUT,
+  USER_SET_USER_DETAILS
+} from '../constants/actionTypes';
 
 export function loginUser (credentials) {
   return {

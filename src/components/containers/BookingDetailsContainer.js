@@ -12,13 +12,16 @@ import BookingDetails from '../presentations/bookingDetails/BookingDetails';
 
 import * as bookingActions from '../../actions/booking';
 
+import { BOOKING_TYPE_NEW, BOOKING_TYPE_UPCOMING } from '../../constants/booking'
+
 class BookingDetailsContainer extends Component {
   constructor(props) {
     super(props);
+    const isExistingBooking = props.navigation.state.params.bookingType === BOOKING_TYPE_UPCOMING;
 
     this.state = {
-      startDate: null,
-      endDate: null,
+      startDate: isExistingBooking ? new Date(props.navigation.state.params.selectedBooking.startDate) : null,
+      endDate: isExistingBooking ? new Date(props.navigation.state.params.selectedBooking.endDate) : null,
       activeDatePicker: null,
     };
   }
@@ -72,11 +75,23 @@ class BookingDetailsContainer extends Component {
         Platform.OS === 'ios' ? AlertIOS.alert('End date should grater then Start Date') :
           alert('End date should grater then Start Date');
       } else {
-        await this.props.createBooking({
-          startDate,
-          endDate,
-          car: navigation.state.params.selectedCar._id
-        });
+
+        if (navigation.state.params.bookingType === BOOKING_TYPE_NEW) {
+          await this.props.createBooking({
+            startDate,
+            endDate,
+            car: navigation.state.params.selectedBooking.car._id
+          });
+        } else {
+          await this.props.editBooking(
+            navigation.state.params.selectedBooking._id,
+            {
+              startDate,
+              endDate,
+              car: navigation.state.params.selectedBooking.car._id
+            }
+          );
+        }
 
         Platform.OS === 'ios' ? AlertIOS.alert('Your booking has been successfully created') :
           alert('Your booking has been successfully created');
@@ -91,6 +106,7 @@ class BookingDetailsContainer extends Component {
 
   render() {
     const { navigation: { state: { params } } } = this.props;
+    const isEditable = [BOOKING_TYPE_NEW ,BOOKING_TYPE_UPCOMING].includes(params.bookingType);
 
     return (
       <BookingDetails
@@ -98,7 +114,9 @@ class BookingDetailsContainer extends Component {
         handleOpenDatePicker={ this._handleOpenDatePicker }
         handleSubmit={ this._handleSubmit }
         dateItem={ this.state }
-        carItem={ params.selectedCar }
+        isEditable={ isEditable }
+        isNewBooking={ params.bookingType === BOOKING_TYPE_NEW }
+        bookingItem={ params.selectedBooking }
       />
     );
   }

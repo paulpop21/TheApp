@@ -94,12 +94,12 @@ const routeConfig = {
 };
 
 const drawerNavigatorConfig = {
-  initialRouteName: MY_BOOKINGS_SCREEN,
+  initialRouteName: BOOKINGS_SCREEN,
   drawerWidth: width / 2,
   drawerPosition: 'left',
   contentComponent: CustomDrawerContentComponent,
   contentOptions: {
-    activeTintColor: '#C70039',
+    activeTintColor: '#05a5d1',
   },
 };
 

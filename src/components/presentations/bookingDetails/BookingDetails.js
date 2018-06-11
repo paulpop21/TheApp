@@ -15,16 +15,22 @@ const BookingDetails = ({
   handleChangeDate,
   handleOpenDatePicker,
   handleSubmit,
+  isEditable,
+  isNewBooking,
   dateItem: {
     activeDatePicker,
     startDate,
     endDate,
   },
-  carItem: {
-    image,
-    mark,
-    model,
-  },
+  bookingItem: {
+    car: {
+      image,
+      mark,
+      model,
+    },
+    startDate: bookingStartDate = null,
+    endDate: bookingEndDate = null,
+  }
 }) => {
   const isButtonDisabled = !activeDatePicker && (!startDate || !endDate);
 
@@ -38,7 +44,7 @@ const BookingDetails = ({
       </View>
       <View style={ styles.itemContainer }>
         <View style={ styles.rowContentContainer }>
-          <View style={[styles.centeredContentContainer , { borderRightColor: '#C70039', borderRightWidth: 0.5 }] }>
+          <View style={[styles.centeredContentContainer , { borderRightColor: '#001f25', borderRightWidth: 0.5 }] }>
             <Text>Mark:</Text>
             <Text style={ styles.text }>{ mark }</Text>
           </View>
@@ -49,7 +55,7 @@ const BookingDetails = ({
         </View>
         <View style={[ styles.rowContentContainer, { flex: 2 } ]}>
           {
-            Platform.OS === 'ios' && activeDatePicker ? (
+            Platform.OS === 'ios' && isEditable && activeDatePicker ? (
               <View
                 style={[styles.itemContainer, { justifyContent: 'center' }]}
               >
@@ -62,14 +68,16 @@ const BookingDetails = ({
             ) : (
               <React.Fragment>
                 <BookingDetailsDatePicker
+                  disabled={ !isEditable }
                   title='Start Date:'
-                  date={ startDate }
+                  date={ startDate || (bookingStartDate ? new Date(bookingStartDate) : null) }
                   dateType='startDate'
                   handleOpenDatePicker={ handleOpenDatePicker }
                 />
                 <BookingDetailsDatePicker
+                  disabled={ !isEditable }
                   title='End Date:'
-                  date={ endDate }
+                  date={ endDate || (bookingEndDate ? new Date(bookingEndDate) : null) }
                   dateType='endDate'
                   handleOpenDatePicker={ handleOpenDatePicker }
                 />
@@ -78,12 +86,16 @@ const BookingDetails = ({
           }
         </View>
         <View style={ styles.centeredContentContainer }>
-          <CustomButton
-            buttonText={ activeDatePicker ? 'Choose' : 'Book' }
-            customButtonStyle={ isButtonDisabled ? { opacity: 0.5 } : {} }
-            onPressHandle={ () => { activeDatePicker ? handleOpenDatePicker(null) : handleSubmit() } }
-            disabled={ isButtonDisabled }
-          />
+          {
+            isEditable && (
+              <CustomButton
+                buttonText={ activeDatePicker ? 'Choose' : isNewBooking ? 'Book' : 'Change' }
+                customButtonStyle={ isButtonDisabled ? { opacity: 0.5 } : {} }
+                onPressHandle={ () => { activeDatePicker ? handleOpenDatePicker(null) : handleSubmit() } }
+                disabled={ isButtonDisabled }
+              />
+            )
+          }
         </View>
       </View>
     </SafeAreaView>
@@ -115,7 +127,7 @@ const styles = StyleSheet.create({
   rowContentContainer: {
     flex: 1,
     flexDirection: 'row',
-    borderBottomColor: '#C70039',
+    borderBottomColor: '#001f25',
     borderBottomWidth: 0.5
   }
 });
