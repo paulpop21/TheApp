@@ -1,12 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
+import MapView, { Marker } from 'react-native-maps';
 import {
   StyleSheet,
   Text,
   Image,
   SafeAreaView,
+  TouchableOpacity,
   View,
   Platform,
 } from 'react-native';
+
 import CustomButton from "../shared/CustomButton";
 import CustomDatePicker from "../shared/CustomDatePicker";
 import BookingDetailsDatePicker from "./BookingDetailsDatePicker";
@@ -15,8 +18,10 @@ const BookingDetails = ({
   handleChangeDate,
   handleOpenDatePicker,
   handleSubmit,
+  handleToggleMap,
   isEditable,
   isNewBooking,
+  isMapDisplayed,
   dateItem: {
     activeDatePicker,
     startDate,
@@ -27,12 +32,21 @@ const BookingDetails = ({
       image,
       mark,
       model,
+      parking: {
+        coordinates: {
+          latitude,
+          longitude,
+        },
+        name: parkingName,
+      }
     },
     startDate: bookingStartDate = null,
     endDate: bookingEndDate = null,
+    bookingPrice,
   }
 }) => {
-  const isButtonDisabled = !activeDatePicker && (!startDate || !endDate);
+  const isButtonDisabled = !isMapDisplayed && !activeDatePicker && (!startDate || !endDate);
+  const buttonText = isMapDisplayed ? 'Close' : activeDatePicker ? 'Choose' : isNewBooking ? 'Book' : 'Change';
 
   return (
     <SafeAreaView style={ styles.container }>
@@ -43,55 +57,96 @@ const BookingDetails = ({
         />
       </View>
       <View style={ styles.itemContainer }>
-        <View style={ styles.rowContentContainer }>
-          <View style={[styles.centeredContentContainer , { borderRightColor: '#001f25', borderRightWidth: 0.5 }] }>
-            <Text>Mark:</Text>
-            <Text style={ styles.text }>{ mark }</Text>
-          </View>
-          <View style={ styles.centeredContentContainer }>
-            <Text>Model:</Text>
-            <Text style={ styles.text }>{ model }</Text>
-          </View>
-        </View>
-        <View style={[ styles.rowContentContainer, { flex: 2 } ]}>
-          {
-            Platform.OS === 'ios' && isEditable && activeDatePicker ? (
-              <View
-                style={[styles.itemContainer, { justifyContent: 'center' }]}
-              >
-                <CustomDatePicker
-                  selectedDate={ activeDatePicker === 'startDate' ? startDate : endDate }
-                  handleChangeDate={ handleChangeDate }
-                />
+        {
+          isMapDisplayed ? (
+            <MapView
+              style={ styles.map }
+              region={{
+                latitudeDelta: 0.0043,
+                longitudeDelta: 0.0034,
+                latitude: parseFloat(latitude),
+                longitude: parseFloat(longitude),
+              }}
+            >
+              <Marker
+                coordinate={{
+                  latitude: parseFloat(latitude),
+                  longitude: parseFloat(longitude),
+                }}
+                title={ parkingName }
+              />
+            </MapView>
+          ) : (
+            <React.Fragment>
+              <View style={ styles.rowContentContainer }>
+                <View style={[styles.centeredContentContainer] }>
+                  <Text>Mark:</Text>
+                  <Text style={ styles.text }>{ mark }</Text>
+                </View>
+                <View style={ styles.centeredContentContainer }>
+                  <Text>Model:</Text>
+                  <Text style={ styles.text }>{ model }</Text>
+                </View>
               </View>
+              <View style={{ flex: 2 }}>
+                {
+                  Platform.OS === 'ios' && isEditable && activeDatePicker ? (
+                    <View
+                      style={[styles.itemContainer, { justifyContent: 'center' }]}
+                    >
+                      <CustomDatePicker
+                        selectedDate={ activeDatePicker === 'startDate' ? startDate : endDate }
+                        handleChangeDate={ handleChangeDate }
+                      />
+                    </View>
 
-            ) : (
-              <React.Fragment>
-                <BookingDetailsDatePicker
-                  disabled={ !isEditable }
-                  title='Start Date:'
-                  date={ startDate || (bookingStartDate ? new Date(bookingStartDate) : null) }
-                  dateType='startDate'
-                  handleOpenDatePicker={ handleOpenDatePicker }
-                />
-                <BookingDetailsDatePicker
-                  disabled={ !isEditable }
-                  title='End Date:'
-                  date={ endDate || (bookingEndDate ? new Date(bookingEndDate) : null) }
-                  dateType='endDate'
-                  handleOpenDatePicker={ handleOpenDatePicker }
-                />
-              </React.Fragment>
-            )
-          }
-        </View>
+                  ) : (
+                    <React.Fragment>
+                      <View style={ styles.rowContentContainer }>
+                        <BookingDetailsDatePicker
+                          disabled={ !isEditable }
+                          title='Start Date:'
+                          date={ startDate || (bookingStartDate ? new Date(bookingStartDate) : null) }
+                          dateType='startDate'
+                          handleOpenDatePicker={ handleOpenDatePicker }
+                        />
+                        <BookingDetailsDatePicker
+                          disabled={ !isEditable }
+                          title='End Date:'
+                          date={ endDate || (bookingEndDate ? new Date(bookingEndDate) : null) }
+                          dateType='endDate'
+                          handleOpenDatePicker={ handleOpenDatePicker }
+                        />
+                      </View>
+                      <View style={ styles.rowContentContainer }>
+                        <View style={ styles.centeredContentContainer }>
+                          <Text>Price:</Text>
+                          <Text style={ styles.text }>{ `${ bookingPrice }$` }</Text>
+                        </View>
+                        <TouchableOpacity
+                          style={ styles.centeredContentContainer }
+                          onPress={ handleToggleMap }
+                        >
+                          <Text>View</Text>
+                          <Text style={ styles.text }>Parking Location</Text>
+                        </TouchableOpacity>
+                      </View>
+                    </React.Fragment>
+                  )
+                }
+              </View>
+            </React.Fragment>
+          )
+        }
         <View style={ styles.centeredContentContainer }>
           {
-            isEditable && (
+            (isMapDisplayed || isEditable) && (
               <CustomButton
-                buttonText={ activeDatePicker ? 'Choose' : isNewBooking ? 'Book' : 'Change' }
+                buttonText={ buttonText }
                 customButtonStyle={ isButtonDisabled ? { opacity: 0.5 } : {} }
-                onPressHandle={ () => { activeDatePicker ? handleOpenDatePicker(null) : handleSubmit() } }
+                onPressHandle={ () => {
+                  isMapDisplayed ? handleToggleMap() : activeDatePicker ? handleOpenDatePicker(null) : handleSubmit()
+                } }
                 disabled={ isButtonDisabled }
               />
             )
@@ -118,6 +173,11 @@ const styles = StyleSheet.create({
   image: {
     height: '100%',
     width: '100%',
+  },
+  map: {
+    width: '100%',
+    height: '100%',
+    flex: 3,
   },
   text: {
     fontWeight: 'bold' ,
