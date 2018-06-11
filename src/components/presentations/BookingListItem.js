@@ -21,12 +21,12 @@ const BookingListItem = ({ booking, bookingType, handleSelectBooking, isEditable
           />
         </View>
         <View style={ styles.detailsContainer }>
-          <Text style={ styles.text }>{ `${booking.car.mark} - ${booking.car.model}` }</Text>
+          <Text style={ styles.text }>{ `${ booking.car.mark } - ${ booking.car.model }` }</Text>
           {
             isNew ? (
               <React.Fragment>
-                <Text style={ styles.text }>{ `${booking.car.price}$/day` }</Text>
-                <Text style={ styles.text }>{ `${booking.distance}Km away` }</Text>
+                <Text style={ styles.text }>{ `${ booking.car.price }$/Hour` }</Text>
+                <Text style={ styles.text }>{ `${ booking.distance }Km away` }</Text>
               </React.Fragment>
             ) :(
               <React.Fragment>

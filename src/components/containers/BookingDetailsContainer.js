@@ -13,6 +13,7 @@ import BookingDetails from '../presentations/bookingDetails/BookingDetails';
 import * as bookingActions from '../../actions/booking';
 
 import { BOOKING_TYPE_NEW, BOOKING_TYPE_UPCOMING } from '../../constants/booking'
+import { calculatePrice } from '../../utils';
 
 class BookingDetailsContainer extends Component {
   constructor(props) {
@@ -23,6 +24,7 @@ class BookingDetailsContainer extends Component {
       startDate: isExistingBooking ? new Date(props.navigation.state.params.selectedBooking.startDate) : null,
       endDate: isExistingBooking ? new Date(props.navigation.state.params.selectedBooking.endDate) : null,
       activeDatePicker: null,
+      isMapDisplayed: false,
     };
   }
 
@@ -30,6 +32,12 @@ class BookingDetailsContainer extends Component {
     this.setState({
       [this.state.activeDatePicker]: date
     });
+  };
+
+  _handleToggleMap = () => {
+    this.setState((prevState) => ({
+      isMapDisplayed: !prevState.isMapDisplayed
+    }));
   };
 
   _handleOpenDatePicker = (activeDatePicker) => {
@@ -71,11 +79,10 @@ class BookingDetailsContainer extends Component {
       const { navigation } = this.props;
       const { startDate, endDate } = this.state;
 
-      if (startDate - endDate > 0) {
-        Platform.OS === 'ios' ? AlertIOS.alert('End date should grater then Start Date') :
-          alert('End date should grater then Start Date');
+      if (startDate - endDate > 0 || startDate - Date.now() < 0) {
+        Platform.OS === 'ios' ? AlertIOS.alert(`Start Date can't be in the past and End date should be grater then Start Date`) :
+          alert(`Start Date can't be in the past and End date should be grater then Start Date`);
       } else {
-
         if (navigation.state.params.bookingType === BOOKING_TYPE_NEW) {
           await this.props.createBooking({
             startDate,
@@ -107,16 +114,22 @@ class BookingDetailsContainer extends Component {
   render() {
     const { navigation: { state: { params } } } = this.props;
     const isEditable = [BOOKING_TYPE_NEW ,BOOKING_TYPE_UPCOMING].includes(params.bookingType);
+    const bookingPrice = calculatePrice(this.state.startDate, this.state.endDate, params.selectedBooking.car.price);
 
     return (
       <BookingDetails
         handleChangeDate={ this._handleChangeDate }
         handleOpenDatePicker={ this._handleOpenDatePicker }
         handleSubmit={ this._handleSubmit }
+        handleToggleMap={ this._handleToggleMap }
         dateItem={ this.state }
         isEditable={ isEditable }
+        isMapDisplayed={ this.state.isMapDisplayed }
         isNewBooking={ params.bookingType === BOOKING_TYPE_NEW }
-        bookingItem={ params.selectedBooking }
+        bookingItem={{
+          bookingPrice,
+          ...params.selectedBooking,
+        }}
       />
     );
   }

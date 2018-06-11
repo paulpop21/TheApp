@@ -4,7 +4,6 @@ import { createSwitchNavigator, createStackNavigator, createDrawerNavigator } fr
 
 import AuthScreen from './screens/AuthScreen';
 import UserAuthScreen from './screens/UserAuthScreen';
-import ProfileScreen from './screens/ProfileScreen';
 import MyBookingsScreen from './screens/MyBookingsScreen';
 import BookingsScreen from './screens/BookingsScreen';
 import BookingDetailsScreen from './screens/BookingDetailsScreen';
@@ -14,13 +13,12 @@ import CustomDrawerContentComponent from './presentations/CustomDrawerContentCom
 import {
   AUTH_SCREEN,
   USER_AUTH_SCREEN,
-  PROFILE_SCREEN,
   BOOKINGS_SCREEN,
   MY_BOOKINGS_SCREEN,
   BOOKINGS_DETAILS_SCREEN
 } from '../constants/navigation';
 
-const { width, height } = Dimensions.get('window');
+const { width } = Dimensions.get('window');
 
 const AuthStack = createStackNavigator(
   {
@@ -87,9 +85,6 @@ const routeConfig = {
       },
     }
 
-  },
-  [PROFILE_SCREEN]: {
-    screen: ProfileScreen,
   },
 };
 

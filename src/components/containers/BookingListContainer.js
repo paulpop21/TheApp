@@ -13,7 +13,7 @@ import Loading from '../presentations/shared/Loading';
 import * as carActions from '../../actions/car';
 
 import { BOOKINGS_DETAILS_SCREEN } from '../../constants/navigation';
-import { calculateDistance } from '../../utils/location';
+import { calculateDistance } from '../../utils';
 
 class BookingListContainer extends Component {
   constructor(props) {
