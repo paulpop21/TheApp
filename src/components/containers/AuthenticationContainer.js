@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import Authentication from '../presentations/Authentication';
+import { Authentication } from '../presentational';
 
 import { USER_AUTH_SCREEN, LOGIN_SCREEN, REGISTER_SCREEN } from '../../constants/navigation';
 

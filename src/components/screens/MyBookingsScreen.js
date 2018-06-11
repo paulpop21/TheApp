@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
-import MyBookingListContainer from '../containers/MyBookingListContainer';
-import NavigationHeader from '../presentations/shared/NavigationHeader';
+import { MyBookingListContainer } from '../containers';
+import { NavigationHeader } from '../presentational';
 
 export default class MyBookingsScreen extends Component {
   static navigationOptions = ({ navigation }) => {

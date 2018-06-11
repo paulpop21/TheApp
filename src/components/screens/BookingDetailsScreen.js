@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import BookingDetailsContainer from '../containers/BookingDetailsContainer';
+import { BookingDetailsContainer } from '../containers';
 
 export default class BookingDetailsScreen extends Component {
   static navigationOptions = () => ({

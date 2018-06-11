@@ -8,11 +8,12 @@ import {
   TimePickerAndroid
 } from 'react-native';
 
-import BookingDetails from '../presentations/bookingDetails/BookingDetails';
+import { BookingDetails } from '../presentational';
 
 import * as bookingActions from '../../actions/booking';
 
 import { BOOKING_TYPE_NEW, BOOKING_TYPE_UPCOMING } from '../../constants/booking'
+import { MY_BOOKINGS_SCREEN } from '../../constants/navigation';
 import { calculatePrice } from '../../utils';
 
 class BookingDetailsContainer extends Component {
@@ -80,8 +81,8 @@ class BookingDetailsContainer extends Component {
       const { startDate, endDate } = this.state;
 
       if (startDate - endDate > 0 || startDate - Date.now() < 0) {
-        Platform.OS === 'ios' ? AlertIOS.alert(`Start Date can't be in the past and End date should be grater then Start Date`) :
-          alert(`Start Date can't be in the past and End date should be grater then Start Date`);
+        Platform.OS === 'ios' ? AlertIOS.alert(`Start Date can't be in the past and End date must be grater then Start Date`) :
+          alert(`Start Date can't be in the past and End date must be grater then Start Date`);
       } else {
         if (navigation.state.params.bookingType === BOOKING_TYPE_NEW) {
           await this.props.createBooking({
@@ -103,7 +104,9 @@ class BookingDetailsContainer extends Component {
         Platform.OS === 'ios' ? AlertIOS.alert('Your booking has been successfully created') :
           alert('Your booking has been successfully created');
 
-        navigation.goBack();
+        await this.props.getAllBookings();
+
+        navigation.navigate(MY_BOOKINGS_SCREEN);
       }
     } catch (e) {
       Platform.OS === 'ios' ? AlertIOS.alert('Something went wrong. Please try again.') :

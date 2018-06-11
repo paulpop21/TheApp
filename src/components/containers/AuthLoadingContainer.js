@@ -7,7 +7,7 @@ import {
   AsyncStorage,
 } from 'react-native';
 
-import Loading from '../presentations/shared/Loading';
+import { Loading } from '../presentational';
 
 import { APP_STACK , AUTH_STACK } from '../../constants/navigation';
 import * as userActions from "../../actions/user";

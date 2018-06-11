@@ -7,8 +7,7 @@ import {
   FlatList,
 } from 'react-native';
 
-import BookingListItem from '../presentations/BookingListItem';
-import Loading from '../presentations/shared/Loading';
+import { BookingListItem, Loading } from '../presentational';
 
 import * as carActions from '../../actions/car';
 

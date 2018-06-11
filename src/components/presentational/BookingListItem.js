@@ -26,7 +26,7 @@ const BookingListItem = ({ booking, bookingType, handleSelectBooking, isEditable
             isNew ? (
               <React.Fragment>
                 <Text style={ styles.text }>{ `${ booking.car.price }$/Hour` }</Text>
-                <Text style={ styles.text }>{ `${ booking.distance }Km away` }</Text>
+                <Text style={ styles.text }>{ `${ booking.distance }/Km away` }</Text>
               </React.Fragment>
             ) :(
               <React.Fragment>
