@@ -99,7 +99,7 @@ const drawerNavigatorConfig = {
   drawerPosition: 'left',
   contentComponent: CustomDrawerContentComponent,
   contentOptions: {
-    activeTintColor: '#C70039',
+    activeTintColor: '#05a5d1',
   },
 };
 

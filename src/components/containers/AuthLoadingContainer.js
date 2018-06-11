@@ -1,13 +1,16 @@
 import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
   StyleSheet,
   SafeAreaView,
+  AsyncStorage,
 } from 'react-native';
 
 import Loading from '../presentations/shared/Loading';
 
 import { APP_STACK , AUTH_STACK } from '../../constants/navigation';
+import * as userActions from "../../actions/user";
 
 class AuthLoadingContainer extends Component {
   constructor(props) {
@@ -16,8 +19,14 @@ class AuthLoadingContainer extends Component {
     this._isLoggedIn();
   }
 
-  _isLoggedIn = () => {
-    this.props.navigation.navigate(this.props.user ? APP_STACK : AUTH_STACK);
+  _isLoggedIn = async () => {
+    const user = await AsyncStorage.getItem('user');
+
+    if (user) {
+      this.props.setUserDetails(user);
+    }
+
+    this.props.navigation.navigate(user ? APP_STACK : AUTH_STACK);
   };
 
   render() {
@@ -38,10 +47,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ user: { user } }) => {
-  return {
-    user
-  }
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({
+    ...userActions,
+  }, dispatch);
 };
 
-export default connect(mapStateToProps)(AuthLoadingContainer);
+export default connect(undefined, mapDispatchToProps)(AuthLoadingContainer);

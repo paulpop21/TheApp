@@ -13,15 +13,43 @@ import Loading from '../presentations/shared/Loading';
 import * as carActions from '../../actions/car';
 
 import { BOOKINGS_DETAILS_SCREEN } from '../../constants/navigation';
+import { calculateDistance } from '../../utils/location';
 
 class BookingListContainer extends Component {
-  componentDidMount() {
-    this.props.getAllCars();
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentCoordinates: {},
+    };
+
+    this.watchId = null;
   }
 
+  componentDidMount() {
+    this.props.getAllCars();
 
-  _handleSelectBooking = (selectedCar) => {
-    this.props.navigation.navigate(BOOKINGS_DETAILS_SCREEN, { selectedCar });
+    this.watchId = navigator.geolocation.watchPosition((location) => {
+      this.setState({
+        currentCoordinates: location.coords,
+      });
+    });
+
+  }
+
+  componentWillUnmount() {
+    if(this.watchId){
+      navigator.geolocation.clearWatch(this.watchId);
+    }
+  }
+
+  _handleSelectBooking = (selectedBooking, bookingType) => {
+    this.props.navigation.navigate(
+      BOOKINGS_DETAILS_SCREEN,
+      {
+        selectedBooking,
+        bookingType
+      });
   };
 
   render() {
@@ -35,7 +63,18 @@ class BookingListContainer extends Component {
       <SafeAreaView style={ styles.container }>
         <FlatList
           data={ carsList }
-          renderItem={({ item }) => <BookingListItem item={ item } handleSelectBooking={ this._handleSelectBooking } />}
+          extraData={ this.state.currentCoordinates }
+          renderItem={({ item }) => (
+            <BookingListItem
+              isNew
+              booking={{
+                car: item,
+                distance: calculateDistance(this.state.currentCoordinates, item.parking.coordinates),
+              }}
+              bookingType='New Booking'
+              handleSelectBooking={ this._handleSelectBooking }
+            />
+          )}
           keyExtractor={ item => item._id }
         />
       </SafeAreaView>

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Image,
   Text, TouchableOpacity,
@@ -6,7 +7,7 @@ import {
   StyleSheet
 } from 'react-native';
 
-const BookingListItem = ({ item , handleSelectBooking }) => {
+const BookingListItem = ({ booking, bookingType, handleSelectBooking, isEditable, isNew }) => {
   return (
     <React.Fragment>
       <View style={ styles.lineSeparator } />
@@ -15,28 +16,50 @@ const BookingListItem = ({ item , handleSelectBooking }) => {
           style={ styles.imageContainer }
         >
           <Image
-            source={{ uri: item.image }}
+            source={{ uri: booking.car.image }}
             style={ styles.itemImage }
           />
         </View>
         <View style={ styles.detailsContainer }>
-          <Text style={ styles.text }>{ item.mark }</Text>
-          <Text>-</Text>
-          <Text style={ styles.text }>{ item.model }</Text>
+          <Text style={ styles.text }>{ `${booking.car.mark} - ${booking.car.model}` }</Text>
+          {
+            isNew ? (
+              <React.Fragment>
+                <Text style={ styles.text }>{ `${booking.car.price}$/day` }</Text>
+                <Text style={ styles.text }>{ `${booking.distance}Km away` }</Text>
+              </React.Fragment>
+            ) :(
+              <React.Fragment>
+                <Text style={ styles.text }>{ new Date(booking.startDate).toLocaleString('en-US') }</Text>
+                <Text style={ styles.text }>{ new Date(booking.endDate).toLocaleString('en-US') }</Text>
+              </React.Fragment>
+            )
+          }
         </View>
-        <View
-          style={ styles.actionContainer }
-        >
+        <View style={ styles.actionContainer }>
           <TouchableOpacity
             style={ styles.actionButton }
-            onPress={ () => handleSelectBooking(item) }
+            onPress={ () => handleSelectBooking(booking, bookingType) }
           >
-            <Text style={ styles.text }>Book</Text>
+            <Text style={ styles.text }>{ isEditable ? 'Edit' : (isNew ? 'Book' : 'View') }</Text>
           </TouchableOpacity>
         </View>
       </View>
     </React.Fragment>
   );
+};
+
+BookingListItem.propTypes = {
+  booking: PropTypes.object.isRequired,
+  handleSelectBooking: PropTypes.func.isRequired,
+  bookingType: PropTypes.string.isRequired,
+  isEditable: PropTypes.bool,
+  isNew: PropTypes.bool,
+};
+
+BookingListItem.defaultProps = {
+  isEditable: false,
+  isNew: false,
 };
 
 const styles = StyleSheet.create({
@@ -73,6 +96,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontWeight: 'bold',
+    marginVertical: 3,
   },
 });
 
