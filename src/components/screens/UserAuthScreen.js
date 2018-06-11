@@ -1,6 +1,6 @@
 import React from 'react';
 
-import UserAuthContainer from '../containers/UserAuthContainer';
+import { UserAuthContainer } from '../containers';
 
 export default class UserAuthScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({

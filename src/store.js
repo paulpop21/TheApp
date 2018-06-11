@@ -45,4 +45,6 @@ client.interceptors.response.use((response) => {
   return Promise.reject(error);
 });
 
+console.disableYellowBox = true;
+
 export default createStore(reducers, applyMiddleware(axiosMiddleware(client, { returnRejectedPromiseOnError: true }), reduxThunk));

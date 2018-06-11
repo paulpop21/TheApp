@@ -7,9 +7,11 @@ import {
   View,
 } from 'react-native';
 
-import CustomInput from './shared/CustomInput';
-import CustomButton from './shared/CustomButton';
-import Loading from './shared/Loading';
+import {
+  CustomInput,
+  CustomButton,
+  Loading,
+} from './';
 
 const validate = values => {
   const errors = {};
@@ -61,6 +63,7 @@ const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFo
         onSubmitEditing={ handleSubmit }
         refName={ passwordRef }
         withRef={ true }
+        customTextStyle={{ height: 40 }}
       />
       <CustomButton
         buttonText={ buttonTitle }

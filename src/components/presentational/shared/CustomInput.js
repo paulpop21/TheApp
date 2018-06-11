@@ -15,10 +15,10 @@ class CustomInput extends Component {
         ...restInput
       },
       customInputStyle = {},
+      customTextStyle = {},
       meta: {
         touched,
         error,
-        warning
       },
       refName = null,
       ...restProps
@@ -37,8 +37,9 @@ class CustomInput extends Component {
           { ...restInput }
           { ...restProps }
         />
-        { touched && ((error && <Text style={{ color: 'red', height: 20 }}>{ error }</Text>) ||
-          (warning && <Text style={{ color: 'orange' }}>{ warning }</Text>)) }
+        { touched && (error &&
+          <Text ellipsizeMode='head' numberOfLines={ 2 } style={[ styles.text, customTextStyle ]}>{ error }</Text>
+        )}
       </View>
     );
   }
@@ -54,6 +55,11 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
   },
+  text: {
+    color: 'red',
+    height: 20,
+    width: 200,
+  }
 });
 
 export default CustomInput;

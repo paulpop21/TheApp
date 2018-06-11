@@ -10,9 +10,11 @@ import {
   Platform,
 } from 'react-native';
 
-import CustomButton from "../shared/CustomButton";
-import CustomDatePicker from "../shared/CustomDatePicker";
-import BookingDetailsDatePicker from "./BookingDetailsDatePicker";
+import {
+  CustomButton,
+  CustomDatePicker,
+  BookingDetailsDatePicker,
+} from './';
 
 const BookingDetails = ({
   handleChangeDate,
@@ -144,6 +146,7 @@ const BookingDetails = ({
               <CustomButton
                 buttonText={ buttonText }
                 customButtonStyle={ isButtonDisabled ? { opacity: 0.5 } : {} }
+                customTextStyle={ isButtonDisabled ? { color: '#fff' } : {} }
                 onPressHandle={ () => {
                   isMapDisplayed ? handleToggleMap() : activeDatePicker ? handleOpenDatePicker(null) : handleSubmit()
                 } }

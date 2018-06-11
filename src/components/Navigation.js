@@ -2,13 +2,16 @@ import React from 'react';
 import { Dimensions, Image } from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
-import AuthScreen from './screens/AuthScreen';
-import UserAuthScreen from './screens/UserAuthScreen';
-import MyBookingsScreen from './screens/MyBookingsScreen';
-import BookingsScreen from './screens/BookingsScreen';
-import BookingDetailsScreen from './screens/BookingDetailsScreen';
-import AuthLoadingScreen from './screens/AuthLoadingScreen';
-import CustomDrawerContentComponent from './presentations/CustomDrawerContentComponent';
+import {
+  AuthScreen,
+  UserAuthScreen,
+  MyBookingsScreen,
+  BookingsScreen,
+  BookingDetailsScreen,
+  AuthLoadingScreen
+} from './screens';
+
+import { CustomDrawerContentComponent } from './presentational';
 
 import {
   AUTH_SCREEN,

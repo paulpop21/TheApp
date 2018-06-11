@@ -5,7 +5,7 @@ import {
   SafeAreaView,
 } from 'react-native';
 
-import CustomButton from './shared/CustomButton';
+import { CustomButton } from './';
 
 const Auth = ({ handleGoToLogin, handleGoToRegister }) => {
   return (

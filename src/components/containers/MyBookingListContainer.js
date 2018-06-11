@@ -7,9 +7,11 @@ import {
   SectionList, Text, View,
 } from 'react-native';
 
-import BookingListItem from '../presentations/BookingListItem';
-import BookingListSectionHeader from '../presentations/BookingListSectionHeader';
-import Loading from '../presentations/shared/Loading';
+import {
+  BookingListItem,
+  BookingListSectionHeader,
+  Loading,
+} from '../presentational';
 
 import * as bookingActions from '../../actions/booking';
 

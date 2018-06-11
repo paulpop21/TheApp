@@ -3,7 +3,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
 
-import AuthForm from '../presentations/AuthForm';
+import { AuthForm } from '../presentational';
 
 import * as userActions from '../../actions/user';
 

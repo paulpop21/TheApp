@@ -1,6 +1,6 @@
 import React from 'react';
 
-import AuthLoadingContainer from '../containers/AuthLoadingContainer';
+import { AuthLoadingContainer } from '../containers';
 
 const AuthLoadingScreen = (props) => {
   return (
