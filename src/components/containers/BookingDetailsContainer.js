@@ -19,7 +19,7 @@ import { calculatePrice } from '../../utils';
 class BookingDetailsContainer extends Component {
   constructor(props) {
     super(props);
-    const isExistingBooking = props.navigation.state.params.bookingType === BOOKING_TYPE_UPCOMING;
+    const isExistingBooking = props.navigation.state.params.bookingType !== BOOKING_TYPE_NEW;
 
     this.state = {
       startDate: isExistingBooking ? new Date(props.navigation.state.params.selectedBooking.startDate) : null,
@@ -45,7 +45,7 @@ class BookingDetailsContainer extends Component {
     this.setState({
       activeDatePicker
     }, async () => {
-      if (this.state.activeDatePicker && Platform.OS === 'android') {
+      if (Platform.OS === 'android' && this.state.activeDatePicker) {
         const { activeDatePicker, startDate, endDate } = this.state;
         const currentDate = (activeDatePicker === 'startDate' ? startDate : endDate) || new Date();
 
@@ -116,7 +116,7 @@ class BookingDetailsContainer extends Component {
 
   render() {
     const { navigation: { state: { params } } } = this.props;
-    const isEditable = [BOOKING_TYPE_NEW ,BOOKING_TYPE_UPCOMING].includes(params.bookingType);
+    const isEditable = [BOOKING_TYPE_NEW, BOOKING_TYPE_UPCOMING].includes(params.bookingType);
     const bookingPrice = calculatePrice(this.state.startDate, this.state.endDate, params.selectedBooking.car.price);
 
     return (
@@ -137,7 +137,6 @@ class BookingDetailsContainer extends Component {
     );
   }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({

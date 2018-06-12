@@ -5,7 +5,7 @@ import {
   USER_SET_USER_DETAILS
 } from '../constants/actionTypes';
 
-export function loginUser (credentials) {
+export const loginUser = (credentials) => {
   return {
     type: USER_LOGIN_REQUEST,
     payload: {
@@ -16,9 +16,9 @@ export function loginUser (credentials) {
       }
     }
   };
-}
+};
 
-export function registerUser (credentials) {
+export const registerUser = (credentials) => {
   return {
     type: USER_REGISTER_REQUEST,
     payload: {
@@ -29,19 +29,19 @@ export function registerUser (credentials) {
       }
     }
   };
-}
+};
 
-export function logutUser () {
+export const logutUser = () => {
   return {
     type: USER_LOGOUT,
   };
-}
+};
 
-export function setUserDetails (userDetails) {
+export const setUserDetails = (userDetails) => {
   return {
     type: USER_SET_USER_DETAILS,
     payload: {
       userDetails
     }
   };
-}
+};

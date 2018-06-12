@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { View, StyleSheet, Text, TouchableOpacity, Image } from 'react-native';
 import { DrawerItems, SafeAreaView } from 'react-navigation';
 
+import { CustomIconImage } from './';
+
 import * as userActions from '../../actions/user';
 
 import { AUTH_STACK } from '../../constants/navigation';
@@ -23,12 +25,8 @@ const CustomDrawerContentComponent = (props) => (
           <View
             style={ styles.icon }
           >
-            <Image
+            <CustomIconImage
               source={require('../../assets/images/icons/exit.png')}
-              style={{
-                height: 26,
-                width: 26,
-              }}
             />
           </View>
           <Text style={ styles.buttonText }>Logout</Text>

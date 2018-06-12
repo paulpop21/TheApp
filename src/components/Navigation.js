@@ -11,7 +11,10 @@ import {
   AuthLoadingScreen
 } from './screens';
 
-import { CustomDrawerContentComponent } from './presentational';
+import {
+  CustomDrawerContentComponent,
+  CustomIconImage,
+} from './presentational';
 
 import {
   AUTH_SCREEN,
@@ -60,12 +63,8 @@ const routeConfig = {
       drawerLabel: 'Bookings',
       drawerIcon() {
         return (
-          <Image
-            source={require('../assets/images/icons/traffic.png')}
-            style={{
-              height: 26,
-              width: 26,
-            }}
+          <CustomIconImage
+            source={ require('../assets/images/icons/traffic.png') }
           />
         );
       },
@@ -77,12 +76,8 @@ const routeConfig = {
       drawerLabel: 'My Bookings',
       drawerIcon() {
         return (
-          <Image
-            source={require('../assets/images/icons/booking.png')}
-            style={{
-              height: 26,
-              width: 26,
-            }}
+          <CustomIconImage
+            source={ require('../assets/images/icons/booking.png') }
           />
         );
       },

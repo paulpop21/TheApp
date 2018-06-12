@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
   TextInput,
   StyleSheet
 } from 'react-native';
-
 
 class CustomInput extends Component {
   render() {
@@ -14,13 +14,13 @@ class CustomInput extends Component {
         onChange,
         ...restInput
       },
-      customInputStyle = {},
-      customTextStyle = {},
+      customInputStyle,
+      customTextStyle,
       meta: {
         touched,
         error,
       },
-      refName = null,
+      refName,
       ...restProps
     } = this.props;
 
@@ -44,6 +44,18 @@ class CustomInput extends Component {
     );
   }
 }
+
+CustomInput.propTypes = {
+  customInputStyle: PropTypes.object,
+  customTextStyle: PropTypes.object,
+  refName: PropTypes.object,
+};
+
+CustomInput.defaultProps = {
+  customInputStyle: {},
+  customTextStyle: {},
+  refName: null,
+};
 
 const styles = StyleSheet.create({
   input: {

@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Field, reduxForm } from 'redux-form';
 import {
   StyleSheet,
@@ -72,6 +73,19 @@ const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFo
       />
     </KeyboardAvoidingView>
   );
+};
+
+AuthForm.propTypes = {
+  title: PropTypes.string.isRequired,
+  buttonTitle: PropTypes.string.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleInputFocus: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  passwordRef: PropTypes.object,
+};
+
+AuthForm.defaultProps = {
+  isLoading: false,
 };
 
 const styles = StyleSheet.create({

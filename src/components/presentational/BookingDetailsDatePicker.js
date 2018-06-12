@@ -1,4 +1,6 @@
 import React from 'react'
+import moment from 'moment';
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -18,11 +20,19 @@ const BookingDetailsDatePicker = ({ title, disabled, dateType, date, handleOpenD
         numberOfLines={ 2 }
         style={ styles.text }
       >
-        { (date && date.toLocaleString('en-US')) || 'Choose Date' }
+        { (date && moment(date).format('D/M/YY hh:mm a')) || 'Choose Date' }
       </Text>
     </TouchableOpacity>
   </View>
 );
+
+BookingDetailsDatePicker.propTypes = {
+  title: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  handleOpenDatePicker: PropTypes.func.isRequired,
+  date: PropTypes.object,
+  dateType: PropTypes.string,
+};
 
 const styles = StyleSheet.create({
   container: {

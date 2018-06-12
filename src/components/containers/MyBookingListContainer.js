@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   StyleSheet,
   SafeAreaView,
-  SectionList, Text, View,
+  SectionList,
 } from 'react-native';
 
 import {
@@ -23,6 +23,9 @@ class MyBookingListContainer extends Component {
     this.props.getAllBookings();
   }
 
+  componentWillUnmount() {
+    this.props.clearBookingsList();
+  }
 
   _handleSelectBooking = (selectedBooking, bookingType) => {
     this.props.navigation.navigate(
@@ -44,6 +47,7 @@ class MyBookingListContainer extends Component {
       <SafeAreaView style={ styles.container }>
         <SectionList
           sections={ bookingsList }
+          stickySectionHeadersEnabled={ true }
           renderItem={({ item, index, section }) => (
             <BookingListItem
               isEditable={ section.title === BOOKING_TYPE_UPCOMING }
