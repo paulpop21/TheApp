@@ -47,6 +47,7 @@ class MyBookingListContainer extends Component {
       <SafeAreaView style={ styles.container }>
         <SectionList
           sections={ bookingsList }
+          stickySectionHeadersEnabled={ true }
           renderItem={({ item, index, section }) => (
             <BookingListItem
               isEditable={ section.title === BOOKING_TYPE_UPCOMING }

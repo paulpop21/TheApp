@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import {
   Image,
   Text, TouchableOpacity,
@@ -30,8 +31,8 @@ const BookingListItem = ({ booking, bookingType, handleSelectBooking, isEditable
               </React.Fragment>
             ) :(
               <React.Fragment>
-                <Text style={ styles.text }>{ new Date(booking.startDate).toLocaleString('en-US') }</Text>
-                <Text style={ styles.text }>{ new Date(booking.endDate).toLocaleString('en-US') }</Text>
+                <Text style={ styles.text }>{ moment(booking.startDate).format('D/M/YY hh:mm a') }</Text>
+                <Text style={ styles.text }>{ moment(booking.endDate).format('D/M/YY hh:mm a') }</Text>
               </React.Fragment>
             )
           }
