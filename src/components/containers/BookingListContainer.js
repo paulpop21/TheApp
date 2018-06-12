@@ -37,6 +37,8 @@ class BookingListContainer extends Component {
   }
 
   componentWillUnmount() {
+    this.props.clearCarsList();
+
     if(this.watchId){
       navigator.geolocation.clearWatch(this.watchId);
     }

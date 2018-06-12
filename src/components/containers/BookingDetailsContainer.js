@@ -45,7 +45,7 @@ class BookingDetailsContainer extends Component {
     this.setState({
       activeDatePicker
     }, async () => {
-      if (this.state.activeDatePicker && Platform.OS === 'android') {
+      if (Platform.OS === 'android' && this.state.activeDatePicker) {
         const { activeDatePicker, startDate, endDate } = this.state;
         const currentDate = (activeDatePicker === 'startDate' ? startDate : endDate) || new Date();
 
@@ -137,7 +137,6 @@ class BookingDetailsContainer extends Component {
     );
   }
 }
-
 
 const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({

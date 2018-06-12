@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
-  Image,
-  View,
   TouchableOpacity,
   StyleSheet,
 } from 'react-native';
+
+import { CustomIconImage } from '../';
 
 const HeaderComponent = ({ navigation }) => {
   return (
@@ -15,9 +15,9 @@ const HeaderComponent = ({ navigation }) => {
         navigation.openDrawer();
       }}
     >
-      <Image
+      <CustomIconImage
         source={ require('../../../assets/images/icons/menu-icon.png') }
-        style={ styles.headerIcon }
+        customStyles={ styles.headerIcon }
       />
     </TouchableOpacity>
   );

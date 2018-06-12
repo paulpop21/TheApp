@@ -17,10 +17,6 @@ class UserAuthContainer extends Component {
     this.myRef = React.createRef();
   }
 
-  static navigationOptions = ({ navigation }) => ({
-    title: `${ navigation.state.params.screenTitle }`,
-  });
-
   _handleSubmit = async (credentials) => {
     const { navigation: { state: { params } } } = this.props;
 

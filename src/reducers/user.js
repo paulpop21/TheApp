@@ -7,7 +7,7 @@ const defaultState = {
   loading: false,
 };
 
-export default async function userReducer (state = defaultState, action) {
+export default userReducer = async (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.USER_LOGIN_REQUEST:
     case actionTypes.USER_REGISTER_REQUEST: {
@@ -68,4 +68,4 @@ export default async function userReducer (state = defaultState, action) {
       return state;
     }
   }
-}
+};

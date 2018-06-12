@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 import {
   View,
   Text,
@@ -23,6 +24,14 @@ const BookingDetailsDatePicker = ({ title, disabled, dateType, date, handleOpenD
     </TouchableOpacity>
   </View>
 );
+
+BookingDetailsDatePicker.propTypes = {
+  title: PropTypes.string.isRequired,
+  disabled: PropTypes.bool.isRequired,
+  handleOpenDatePicker: PropTypes.func.isRequired,
+  date: PropTypes.object,
+  dateType: PropTypes.string,
+};
 
 const styles = StyleSheet.create({
   container: {

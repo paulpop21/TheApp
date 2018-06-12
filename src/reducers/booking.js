@@ -6,7 +6,7 @@ const defaultState = {
   loading: false,
 };
 
-export default function bookingReducer (state = defaultState, action) {
+export default bookingReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.BOOKINGS_GET_LIST_REQUEST:
     case actionTypes.BOOKINGS_EDIT_BOOKING_REQUEST:
@@ -34,6 +34,13 @@ export default function bookingReducer (state = defaultState, action) {
       };
     }
 
+    case actionTypes.BOOKINGS_CLEAR_LIST: {
+      return {
+        ...state,
+        bookingsList: [],
+      };
+    }
+
     case actionTypes.BOOKINGS_GET_LIST_ERROR:
     case actionTypes.BOOKINGS_EDIT_BOOKING_ERROR:
     case actionTypes.BOOKINGS_CREATE_BOOKING_ERROR: {
@@ -47,4 +54,4 @@ export default function bookingReducer (state = defaultState, action) {
       return state;
     }
   }
-}
+};

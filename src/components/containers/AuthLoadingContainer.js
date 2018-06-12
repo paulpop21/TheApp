@@ -9,8 +9,9 @@ import {
 
 import { Loading } from '../presentational';
 
-import { APP_STACK , AUTH_STACK } from '../../constants/navigation';
 import * as userActions from "../../actions/user";
+
+import { APP_STACK , AUTH_STACK } from '../../constants/navigation';
 
 class AuthLoadingContainer extends Component {
   constructor(props) {

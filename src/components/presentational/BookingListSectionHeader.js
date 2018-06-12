@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   Text,
   View,
@@ -13,6 +14,10 @@ const BookingListSectionHeader = ({ title }) => {
       <Text style={ styles.text }>{ title }</Text>
     </View>
   );
+};
+
+BookingListSectionHeader.propTypes = {
+  title: PropTypes.string.isRequired,
 };
 
 const styles = StyleSheet.create({

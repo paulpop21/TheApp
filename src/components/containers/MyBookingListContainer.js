@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import {
   StyleSheet,
   SafeAreaView,
-  SectionList, Text, View,
+  SectionList,
 } from 'react-native';
 
 import {
@@ -23,6 +23,9 @@ class MyBookingListContainer extends Component {
     this.props.getAllBookings();
   }
 
+  componentWillUnmount() {
+    this.props.clearBookingsList();
+  }
 
   _handleSelectBooking = (selectedBooking, bookingType) => {
     this.props.navigation.navigate(

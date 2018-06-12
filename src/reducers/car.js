@@ -5,7 +5,7 @@ const defaultState = {
   loading: false,
 };
 
-export default function carReducer (state = defaultState, action) {
+export default carReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.CAR_GET_LIST_REQUEST: {
       return {
@@ -22,6 +22,13 @@ export default function carReducer (state = defaultState, action) {
       };
     }
 
+    case actionTypes.CAR_CLEAR_LIST: {
+      return {
+        ...state,
+        carsList: [],
+      };
+    }
+
     case actionTypes.CAR_GET_LIST_ERROR: {
       return {
         ...state,
@@ -33,4 +40,4 @@ export default function carReducer (state = defaultState, action) {
       return state;
     }
   }
-}
+};

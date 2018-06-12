@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Text,
@@ -7,7 +8,7 @@ import {
 
 import { CustomButton } from './';
 
-const Auth = ({ handleGoToLogin, handleGoToRegister }) => {
+const Authentication = ({ handleGoToLogin, handleGoToRegister }) => {
   return (
     <SafeAreaView style={ styles.container }>
       <Text style={ styles.title }>Welcome to TheApp</Text>
@@ -21,6 +22,11 @@ const Auth = ({ handleGoToLogin, handleGoToRegister }) => {
       />
     </SafeAreaView>
   );
+};
+
+Authentication.propTypes = {
+  handleGoToLogin: PropTypes.func.isRequired,
+  handleGoToRegister: PropTypes.func.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -38,4 +44,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Auth;
+export default Authentication;

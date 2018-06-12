@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import MapView, { Marker } from 'react-native-maps';
 import {
   StyleSheet,
@@ -158,6 +159,15 @@ const BookingDetails = ({
       </View>
     </SafeAreaView>
   );
+};
+
+BookingDetails.propTypes = {
+  handleOpenDatePicker: PropTypes.func.isRequired,
+  handleSubmit: PropTypes.func.isRequired,
+  handleToggleMap: PropTypes.func.isRequired,
+  isEditable: PropTypes.bool,
+  isNewBooking: PropTypes.bool,
+  isMapDisplayed: PropTypes.bool,
 };
 
 const styles = StyleSheet.create({
