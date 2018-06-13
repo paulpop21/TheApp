@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -9,9 +10,9 @@ import {
 
 import { Loading } from '../presentational';
 
-import * as userActions from "../../actions/user";
+import * as userActions from '../../actions/user';
 
-import { APP_STACK , AUTH_STACK } from '../../constants/navigation';
+import { APP_STACK, AUTH_STACK } from '../../constants/navigation';
 
 class AuthLoadingContainer extends Component {
   constructor(props) {
@@ -32,12 +33,17 @@ class AuthLoadingContainer extends Component {
 
   render() {
     return (
-      <SafeAreaView style={styles.container}>
+      <SafeAreaView style={ styles.container }>
         <Loading />
       </SafeAreaView>
     );
   }
 }
+
+AuthLoadingContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  setUserDetails: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -45,13 +51,11 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#F5FCFF',
-  }
+  },
 });
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    ...userActions,
-  }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...userActions,
+}, dispatch);
 
 export default connect(undefined, mapDispatchToProps)(AuthLoadingContainer);

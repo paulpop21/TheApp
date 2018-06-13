@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { Authentication } from '../presentational';
 
 import { USER_AUTH_SCREEN, LOGIN_SCREEN, REGISTER_SCREEN } from '../../constants/navigation';
 
-export default class AuthContainer extends Component {
+class AuthContainer extends Component {
   _navigateToLogin = () => {
     this.props.navigation.navigate(USER_AUTH_SCREEN, { screenName: LOGIN_SCREEN, screenTitle: 'Login' });
   };
@@ -22,3 +23,9 @@ export default class AuthContainer extends Component {
     );
   }
 }
+
+AuthContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+export default AuthContainer;

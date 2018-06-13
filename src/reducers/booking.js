@@ -6,7 +6,7 @@ const defaultState = {
   loading: false,
 };
 
-export default bookingReducer = (state = defaultState, action) => {
+const bookingReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.BOOKINGS_GET_LIST_REQUEST:
     case actionTypes.BOOKINGS_EDIT_BOOKING_REQUEST:
@@ -55,3 +55,5 @@ export default bookingReducer = (state = defaultState, action) => {
     }
   }
 };
+
+export default bookingReducer;

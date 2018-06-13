@@ -7,7 +7,7 @@ import {
 const Loading = () => (
   <React.Fragment>
     <ActivityIndicator />
-    <StatusBar barStyle="default" />
+    <StatusBar barStyle='default' />
   </React.Fragment>
 );
 

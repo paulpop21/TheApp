@@ -16,4 +16,8 @@ CustomDatePicker.propTypes = {
   selectedDate: PropTypes.object,
 };
 
+CustomDatePicker.defaultProps = {
+  selectedDate: new Date(),
+};
+
 export default CustomDatePicker;

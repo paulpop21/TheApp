@@ -1,11 +1,12 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { AuthenticationContainer } from '../containers';
 
-export default class AuthScreen extends React.Component {
+class AuthScreen extends React.Component {
   static navigationOptions = () => ({
     title: 'TheApp',
-    headerBackTitle: 'Back'
+    headerBackTitle: 'Back',
   });
 
   render() {
@@ -14,3 +15,9 @@ export default class AuthScreen extends React.Component {
     );
   }
 }
+
+AuthScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+export default AuthScreen;

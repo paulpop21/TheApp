@@ -1,5 +1,5 @@
 import React from 'react';
-import { Dimensions, Image } from 'react-native';
+import { Dimensions } from 'react-native';
 import { createSwitchNavigator, createStackNavigator, createDrawerNavigator } from 'react-navigation';
 
 import {
@@ -8,7 +8,7 @@ import {
   MyBookingsScreen,
   BookingsScreen,
   BookingDetailsScreen,
-  AuthLoadingScreen
+  AuthLoadingScreen,
 } from './screens';
 
 import {
@@ -21,7 +21,7 @@ import {
   USER_AUTH_SCREEN,
   BOOKINGS_SCREEN,
   MY_BOOKINGS_SCREEN,
-  BOOKINGS_DETAILS_SCREEN
+  BOOKINGS_DETAILS_SCREEN,
 } from '../constants/navigation';
 
 const { width } = Dimensions.get('window');
@@ -33,7 +33,7 @@ const AuthStack = createStackNavigator(
   },
   {
     initialRouteName: AUTH_SCREEN,
-  }
+  },
 );
 
 const BookingStack = createStackNavigator(
@@ -43,7 +43,7 @@ const BookingStack = createStackNavigator(
   },
   {
     initialRouteName: BOOKINGS_SCREEN,
-  }
+  },
 );
 
 const MyBookingStack = createStackNavigator(
@@ -53,7 +53,7 @@ const MyBookingStack = createStackNavigator(
   },
   {
     initialRouteName: MY_BOOKINGS_SCREEN,
-  }
+  },
 );
 
 const routeConfig = {
@@ -68,7 +68,7 @@ const routeConfig = {
           />
         );
       },
-    }
+    },
   },
   [MY_BOOKINGS_SCREEN]: {
     screen: MyBookingStack,
@@ -81,7 +81,7 @@ const routeConfig = {
           />
         );
       },
-    }
+    },
 
   },
 };
@@ -98,7 +98,7 @@ const drawerNavigatorConfig = {
 
 const AppStack = createDrawerNavigator(
   routeConfig,
-  drawerNavigatorConfig
+  drawerNavigatorConfig,
 );
 
 const AuthSwitch = createSwitchNavigator(
@@ -109,7 +109,7 @@ const AuthSwitch = createSwitchNavigator(
   },
   {
     initialRouteName: 'AuthLoading',
-  }
+  },
 );
 
 export default AuthSwitch;

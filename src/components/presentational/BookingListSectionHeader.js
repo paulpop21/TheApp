@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import {
   Text,
   View,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 
-const BookingListSectionHeader = ({ title }) => {
-  return (
-    <View
-      style={ styles.container }
-    >
-      <Text style={ styles.text }>{ title }</Text>
-    </View>
-  );
-};
+const BookingListSectionHeader = ({ title }) => (
+  <View
+    style={ styles.container }
+  >
+    <Text style={ styles.text }>{ title }</Text>
+  </View>
+);
 
 BookingListSectionHeader.propTypes = {
   title: PropTypes.string.isRequired,

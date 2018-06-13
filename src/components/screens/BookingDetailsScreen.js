@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { BookingDetailsContainer } from '../containers';
 
-export default class BookingDetailsScreen extends Component {
+class BookingDetailsScreen extends Component {
   static navigationOptions = () => ({
     title: 'Booking Details',
   });
@@ -13,3 +14,9 @@ export default class BookingDetailsScreen extends Component {
     );
   }
 }
+
+BookingDetailsScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+export default BookingDetailsScreen;

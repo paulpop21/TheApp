@@ -1,19 +1,25 @@
-import React from 'react'
+import React from 'react';
 import moment from 'moment';
 import PropTypes from 'prop-types';
 import {
   View,
   Text,
   TouchableOpacity,
-  StyleSheet
-} from 'react-native'
+  StyleSheet,
+} from 'react-native';
 
-const BookingDetailsDatePicker = ({ title, disabled, dateType, date, handleOpenDatePicker }) => (
+const BookingDetailsDatePicker = ({
+  title,
+  disabled,
+  dateType,
+  date,
+  handleOpenDatePicker,
+}) => (
   <View style={ styles.container }>
     <Text>{ title }</Text>
     <TouchableOpacity
       disabled={ disabled }
-      onPress={() => handleOpenDatePicker(dateType) }
+      onPress={ () => handleOpenDatePicker(dateType) }
     >
       <Text
         ellipsizeMode='middle'
@@ -30,8 +36,12 @@ BookingDetailsDatePicker.propTypes = {
   title: PropTypes.string.isRequired,
   disabled: PropTypes.bool.isRequired,
   handleOpenDatePicker: PropTypes.func.isRequired,
+  dateType: PropTypes.string.isRequired,
   date: PropTypes.object,
-  dateType: PropTypes.string,
+};
+
+BookingDetailsDatePicker.defaultProps = {
+  date: null,
 };
 
 const styles = StyleSheet.create({
@@ -45,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     textAlign: 'center',
     color: '#05a5d1',
-  }
+  },
 });
 
 export default BookingDetailsDatePicker;
