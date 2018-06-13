@@ -7,21 +7,17 @@ import {
 
 import { CustomIconImage } from '../';
 
-const HeaderComponent = ({ navigation }) => {
-  return (
-    <TouchableOpacity
-      style={ styles.headerButton }
-      onPress={() => {
-        navigation.openDrawer();
-      }}
-    >
-      <CustomIconImage
-        source={ require('../../../assets/images/icons/menu-icon.png') }
-        customStyles={ styles.headerIcon }
-      />
-    </TouchableOpacity>
-  );
-};
+const HeaderComponent = ({ navigation }) => (
+  <TouchableOpacity
+    style={ styles.headerButton }
+    onPress={ () => navigation.openDrawer() }
+  >
+    <CustomIconImage
+      source={ require('../../../assets/images/icons/menu-icon.png') }
+      customStyles={ styles.headerIcon }
+    />
+  </TouchableOpacity>
+);
 
 HeaderComponent.propTypes = {
   navigation: PropTypes.object.isRequired,

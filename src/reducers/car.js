@@ -5,7 +5,7 @@ const defaultState = {
   loading: false,
 };
 
-export default carReducer = (state = defaultState, action) => {
+const carReducer = (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.CAR_GET_LIST_REQUEST: {
       return {
@@ -41,3 +41,5 @@ export default carReducer = (state = defaultState, action) => {
     }
   }
 };
+
+export default carReducer;

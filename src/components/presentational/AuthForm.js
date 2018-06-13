@@ -14,7 +14,7 @@ import {
   Loading,
 } from './';
 
-const validate = values => {
+const validate = (values) => {
   const errors = {};
 
   if (!values.email) {
@@ -32,13 +32,20 @@ const validate = values => {
   return errors;
 };
 
-const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFocus, isLoading }) => {
+const AuthForm = ({
+  title,
+  buttonTitle,
+  handleSubmit,
+  passwordRef,
+  handleInputFocus,
+  isLoading,
+}) => {
   if (isLoading) {
     return <Loading />;
   }
 
   return (
-    <KeyboardAvoidingView style={ styles.container } behavior="padding" enabled>
+    <KeyboardAvoidingView style={ styles.container } behavior='padding' enabled>
       <View>
         <Text style={ styles.title }>{ title }</Text>
       </View>
@@ -63,7 +70,7 @@ const AuthForm = ({ title, buttonTitle, handleSubmit, passwordRef, handleInputFo
         underlineColorAndroid='transparent'
         onSubmitEditing={ handleSubmit }
         refName={ passwordRef }
-        withRef={ true }
+        withRef
         customTextStyle={{ height: 40 }}
       />
       <CustomButton
@@ -80,8 +87,8 @@ AuthForm.propTypes = {
   buttonTitle: PropTypes.string.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleInputFocus: PropTypes.func.isRequired,
-  isLoading: PropTypes.bool.isRequired,
-  passwordRef: PropTypes.object,
+  passwordRef: PropTypes.object.isRequired,
+  isLoading: PropTypes.bool,
 };
 
 AuthForm.defaultProps = {
@@ -100,7 +107,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#05a5d1',
     marginBottom: 20,
-  }
+  },
 });
 
 export default reduxForm({

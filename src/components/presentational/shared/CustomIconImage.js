@@ -8,7 +8,7 @@ import {
 const CustomIconImage = ({ source, customStyles }) => (
   <Image
     source={ source }
-    style={[ styles.icon, customStyles ]}
+    style={ [styles.icon, customStyles] }
   />
 );
 

@@ -8,21 +8,19 @@ import {
 
 import { CustomButton } from './';
 
-const Authentication = ({ handleGoToLogin, handleGoToRegister }) => {
-  return (
-    <SafeAreaView style={ styles.container }>
-      <Text style={ styles.title }>Welcome to TheApp</Text>
-      <CustomButton
-        buttonText='SignUp'
-        onPressHandle={ handleGoToRegister }
-      />
-      <CustomButton
-        buttonText='LogIn'
-        onPressHandle={ handleGoToLogin }
-      />
-    </SafeAreaView>
-  );
-};
+const Authentication = ({ handleGoToLogin, handleGoToRegister }) => (
+  <SafeAreaView style={ styles.container }>
+    <Text style={ styles.title }>Welcome to TheApp</Text>
+    <CustomButton
+      buttonText='SignUp'
+      onPressHandle={ handleGoToRegister }
+    />
+    <CustomButton
+      buttonText='LogIn'
+      onPressHandle={ handleGoToLogin }
+    />
+  </SafeAreaView>
+);
 
 Authentication.propTypes = {
   handleGoToLogin: PropTypes.func.isRequired,
@@ -41,7 +39,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#05a5d1',
     marginBottom: 20,
-  }
+  },
 });
 
 export default Authentication;

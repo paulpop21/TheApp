@@ -7,13 +7,13 @@ const defaultState = {
   loading: false,
 };
 
-export default userReducer = async (state = defaultState, action) => {
+const userReducer = async (state = defaultState, action) => {
   switch (action.type) {
     case actionTypes.USER_LOGIN_REQUEST:
     case actionTypes.USER_REGISTER_REQUEST: {
       return {
         ...state,
-        loading: true
+        loading: true,
       };
     }
 
@@ -21,12 +21,13 @@ export default userReducer = async (state = defaultState, action) => {
     case actionTypes.USER_REGISTER_SUCCESS: {
       const userDetails = {
         ...action.payload.data,
-        authToken: action.payload.headers['x-auth-token']
+        authToken: action.payload.headers['x-auth-token'],
       };
 
       try {
         await AsyncStorage.setItem('user', JSON.stringify(userDetails));
       } catch (e) {
+        // eslint-disable-next-line
         console.warn(e);
       }
 
@@ -41,7 +42,7 @@ export default userReducer = async (state = defaultState, action) => {
       return {
         ...state,
         userDetails: action.payload.userDetails,
-      }
+      };
     }
 
     case actionTypes.USER_LOGIN_ERROR:
@@ -56,12 +57,13 @@ export default userReducer = async (state = defaultState, action) => {
       try {
         await AsyncStorage.clear();
       } catch (e) {
+        // eslint-disable-next-line
         console.warn(e);
       }
 
       return {
-        ...defaultState
-      }
+        ...defaultState,
+      };
     }
 
     default: {
@@ -69,3 +71,5 @@ export default userReducer = async (state = defaultState, action) => {
     }
   }
 };
+
+export default userReducer;

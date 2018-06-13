@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { SubmissionError } from 'redux-form';
@@ -29,8 +30,9 @@ class UserAuthContainer extends Component {
 
       this.props.navigation.navigate(APP_STACK);
     } catch (error) {
-      if (error.type === USER_LOGIN_ERROR)
+      if (error.type === USER_LOGIN_ERROR) {
         throw new SubmissionError({ password: 'Invalid Credentials' });
+      }
     }
   };
 
@@ -44,7 +46,7 @@ class UserAuthContainer extends Component {
 
     return (
       <AuthForm
-        title={ `${ formType } to TheApp` }
+        title={ `${formType} to TheApp` }
         buttonTitle={ formType }
         onSubmit={ this._handleSubmit }
         passwordRef={ this.myRef }
@@ -55,16 +57,23 @@ class UserAuthContainer extends Component {
   }
 }
 
-const mapStateToProps = ({ user: { loading } }) => {
-  return {
-    loading
-  };
+UserAuthContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  loginUser: PropTypes.func.isRequired,
+  registerUser: PropTypes.func.isRequired,
+  loading: PropTypes.bool,
 };
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    ...userActions,
-  }, dispatch);
+UserAuthContainer.defaultProps = {
+  loading: false,
 };
+
+const mapStateToProps = ({ user: { loading } }) => ({
+  loading,
+});
+
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...userActions,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserAuthContainer);

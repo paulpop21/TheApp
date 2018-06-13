@@ -41,12 +41,12 @@ const BookingDetails = ({
           longitude,
         },
         name: parkingName,
-      }
+      },
     },
     startDate: bookingStartDate = null,
     endDate: bookingEndDate = null,
     bookingPrice,
-  }
+  },
 }) => {
   const isButtonDisabled = !isMapDisplayed && !activeDatePicker && (!startDate || !endDate);
   const buttonText = isMapDisplayed ? 'Close' : activeDatePicker ? 'Choose' : isNewBooking ? 'Book' : 'Change';
@@ -82,7 +82,7 @@ const BookingDetails = ({
           ) : (
             <React.Fragment>
               <View style={ styles.rowContentContainer }>
-                <View style={[styles.centeredContentContainer] }>
+                <View style={ [styles.centeredContentContainer] }>
                   <Text>Mark:</Text>
                   <Text style={ styles.text }>{ mark }</Text>
                 </View>
@@ -95,7 +95,7 @@ const BookingDetails = ({
                 {
                   Platform.OS === 'ios' && isEditable && activeDatePicker ? (
                     <View
-                      style={[styles.itemContainer, { justifyContent: 'center' }]}
+                      style={ [styles.itemContainer, { justifyContent: 'center' }] }
                     >
                       <CustomDatePicker
                         selectedDate={ activeDatePicker === 'startDate' ? startDate : endDate }
@@ -109,14 +109,18 @@ const BookingDetails = ({
                         <BookingDetailsDatePicker
                           disabled={ !isEditable }
                           title='Start Date:'
-                          date={ startDate || (bookingStartDate ? new Date(bookingStartDate) : null) }
+                          date={ startDate ||
+                            (bookingStartDate ? new Date(bookingStartDate) : null)
+                          }
                           dateType='startDate'
                           handleOpenDatePicker={ handleOpenDatePicker }
                         />
                         <BookingDetailsDatePicker
                           disabled={ !isEditable }
                           title='End Date:'
-                          date={ endDate || (bookingEndDate ? new Date(bookingEndDate) : null) }
+                          date={ endDate ||
+                            (bookingEndDate ? new Date(bookingEndDate) : null)
+                          }
                           dateType='endDate'
                           handleOpenDatePicker={ handleOpenDatePicker }
                         />
@@ -124,7 +128,7 @@ const BookingDetails = ({
                       <View style={ styles.rowContentContainer }>
                         <View style={ styles.centeredContentContainer }>
                           <Text>Price:</Text>
-                          <Text style={ styles.text }>{ `${ bookingPrice }$` }</Text>
+                          <Text style={ styles.text }>{ `${bookingPrice}$` }</Text>
                         </View>
                         <TouchableOpacity
                           style={ styles.centeredContentContainer }
@@ -148,9 +152,10 @@ const BookingDetails = ({
                 buttonText={ buttonText }
                 customButtonStyle={ isButtonDisabled ? { opacity: 0.5 } : {} }
                 customTextStyle={ isButtonDisabled ? { color: '#fff' } : {} }
-                onPressHandle={ () => {
-                  isMapDisplayed ? handleToggleMap() : activeDatePicker ? handleOpenDatePicker(null) : handleSubmit()
-                } }
+                onPressHandle={ () => (
+                  isMapDisplayed ? handleToggleMap() :
+                    activeDatePicker ? handleOpenDatePicker(null) : handleSubmit()
+                ) }
                 disabled={ isButtonDisabled }
               />
             )
@@ -165,9 +170,12 @@ BookingDetails.propTypes = {
   handleOpenDatePicker: PropTypes.func.isRequired,
   handleSubmit: PropTypes.func.isRequired,
   handleToggleMap: PropTypes.func.isRequired,
-  isEditable: PropTypes.bool,
-  isNewBooking: PropTypes.bool,
-  isMapDisplayed: PropTypes.bool,
+  handleChangeDate: PropTypes.func.isRequired,
+  dateItem: PropTypes.object.isRequired,
+  bookingItem: PropTypes.object.isRequired,
+  isEditable: PropTypes.bool.isRequired,
+  isNewBooking: PropTypes.bool.isRequired,
+  isMapDisplayed: PropTypes.bool.isRequired,
 };
 
 const styles = StyleSheet.create({
@@ -193,7 +201,7 @@ const styles = StyleSheet.create({
     flex: 3,
   },
   text: {
-    fontWeight: 'bold' ,
+    fontWeight: 'bold',
     fontSize: 16,
     color: '#05a5d1',
   },
@@ -201,8 +209,8 @@ const styles = StyleSheet.create({
     flex: 1,
     flexDirection: 'row',
     borderBottomColor: '#001f25',
-    borderBottomWidth: 0.5
-  }
+    borderBottomWidth: 0.5,
+  },
 });
 
 export default BookingDetails;

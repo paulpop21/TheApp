@@ -3,21 +3,25 @@ import PropTypes from 'prop-types';
 import {
   TouchableOpacity,
   Text,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 
-const CustomButton = ({ buttonText, onPressHandle, customButtonStyle, customTextStyle, ...props }) => {
-  return (
-    <TouchableOpacity
-      style={ [ styles.button, customButtonStyle ] }
-      activeOpacity={ 0.7 }
-      onPress={ onPressHandle }
-      { ...props }
-    >
-      <Text style={ [ styles.buttonText, customTextStyle ] }>{ buttonText }</Text>
-    </TouchableOpacity>
-  );
-};
+const CustomButton = ({
+  buttonText,
+  onPressHandle,
+  customButtonStyle,
+  customTextStyle,
+  ...props
+}) => (
+  <TouchableOpacity
+    style={ [styles.button, customButtonStyle] }
+    activeOpacity={ 0.7 }
+    onPress={ onPressHandle }
+    { ...props }
+  >
+    <Text style={ [styles.buttonText, customTextStyle] }>{ buttonText }</Text>
+  </TouchableOpacity>
+);
 
 CustomButton.propTypes = {
   buttonText: PropTypes.string.isRequired,

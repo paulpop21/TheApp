@@ -1,10 +1,11 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import { UserAuthContainer } from '../containers';
 
-export default class UserAuthScreen extends React.Component {
+class UserAuthScreen extends React.Component {
   static navigationOptions = ({ navigation }) => ({
-    title: `${ navigation.state.params.screenTitle }`
+    title: `${navigation.state.params.screenTitle}`,
   });
 
   render() {
@@ -13,3 +14,9 @@ export default class UserAuthScreen extends React.Component {
     );
   }
 }
+
+UserAuthScreen.propTypes = {
+  navigation: PropTypes.object.isRequired,
+};
+
+export default UserAuthScreen;

@@ -4,7 +4,7 @@ import {
   View,
   Text,
   TextInput,
-  StyleSheet
+  StyleSheet,
 } from 'react-native';
 
 class CustomInput extends Component {
@@ -27,25 +27,27 @@ class CustomInput extends Component {
     return (
       <View
         style={{
-          alignItems: 'flex-start'
+          alignItems: 'flex-start',
         }}
       >
         <TextInput
-          style={ [ styles.input, customInputStyle ] }
+          style={ [styles.input, customInputStyle] }
           onChangeText={ onChange }
           ref={ refName }
           { ...restInput }
           { ...restProps }
         />
         { touched && (error &&
-          <Text ellipsizeMode='head' numberOfLines={ 2 } style={[ styles.text, customTextStyle ]}>{ error }</Text>
-        )}
+          <Text ellipsizeMode='head' numberOfLines={ 2 } style={ [styles.text, customTextStyle] }>{ error }</Text>)
+        }
       </View>
     );
   }
 }
 
 CustomInput.propTypes = {
+  input: PropTypes.object.isRequired,
+  meta: PropTypes.object.isRequired,
   customInputStyle: PropTypes.object,
   customTextStyle: PropTypes.object,
   refName: PropTypes.object,
@@ -71,7 +73,7 @@ const styles = StyleSheet.create({
     color: 'red',
     height: 20,
     width: 200,
-  }
+  },
 });
 
 export default CustomInput;

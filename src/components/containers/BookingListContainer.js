@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -33,13 +34,12 @@ class BookingListContainer extends Component {
         currentCoordinates: location.coords,
       });
     });
-
   }
 
   componentWillUnmount() {
     this.props.clearCarsList();
 
-    if(this.watchId){
+    if (this.watchId) {
       navigator.geolocation.clearWatch(this.watchId);
     }
   }
@@ -49,15 +49,16 @@ class BookingListContainer extends Component {
       BOOKINGS_DETAILS_SCREEN,
       {
         selectedBooking,
-        bookingType
-      });
+        bookingType,
+      },
+    );
   };
 
   render() {
     const { car: { carsList, loading } } = this.props;
 
     if (loading) {
-      return <Loading />
+      return <Loading />;
     }
 
     return (
@@ -65,23 +66,33 @@ class BookingListContainer extends Component {
         <FlatList
           data={ carsList }
           extraData={ this.state.currentCoordinates }
-          renderItem={({ item }) => (
+          renderItem={ ({ item }) => (
             <BookingListItem
               isNew
               booking={{
                 car: item,
-                distance: calculateDistance(this.state.currentCoordinates, item.parking.coordinates),
+                distance: calculateDistance(
+                  this.state.currentCoordinates,
+                  item.parking.coordinates,
+                ),
               }}
               bookingType='New Booking'
               handleSelectBooking={ this._handleSelectBooking }
             />
-          )}
+          ) }
           keyExtractor={ item => item._id }
         />
       </SafeAreaView>
     );
   }
 }
+
+BookingListContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  car: PropTypes.object.isRequired,
+  getAllCars: PropTypes.func.isRequired,
+  clearCarsList: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -90,16 +101,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ car }) => {
-  return {
-    car
-  };
-};
+const mapStateToProps = ({ car }) => ({
+  car,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    ...carActions,
-  }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...carActions,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(BookingListContainer);

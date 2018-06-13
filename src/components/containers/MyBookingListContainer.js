@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import {
@@ -16,7 +17,7 @@ import {
 import * as bookingActions from '../../actions/booking';
 
 import { BOOKINGS_DETAILS_SCREEN } from '../../constants/navigation';
-import { BOOKING_TYPE_UPCOMING } from "../../constants/booking";
+import { BOOKING_TYPE_UPCOMING } from '../../constants/booking';
 
 class MyBookingListContainer extends Component {
   componentDidMount() {
@@ -33,38 +34,46 @@ class MyBookingListContainer extends Component {
       {
         selectedBooking,
         bookingType,
-      });
+      },
+    );
   };
 
   render() {
     const { booking: { bookingsList, loading } } = this.props;
 
     if (loading) {
-      return <Loading />
+      return <Loading />;
     }
 
     return (
       <SafeAreaView style={ styles.container }>
         <SectionList
           sections={ bookingsList }
-          stickySectionHeadersEnabled={ true }
-          renderItem={({ item, index, section }) => (
+          stickySectionHeadersEnabled
+          renderItem={ ({ item, section }) => (
             <BookingListItem
               isEditable={ section.title === BOOKING_TYPE_UPCOMING }
               booking={ item }
               bookingType={ section.title }
               handleSelectBooking={ this._handleSelectBooking }
             />
-          )}
-          renderSectionHeader={({ section: { title } }) => (
-           <BookingListSectionHeader title={ title } />
-          )}
+          ) }
+          renderSectionHeader={ ({ section: { title } }) => (
+            <BookingListSectionHeader title={ title } />
+          ) }
           keyExtractor={ item => item._id }
         />
       </SafeAreaView>
     );
   }
 }
+
+MyBookingListContainer.propTypes = {
+  navigation: PropTypes.object.isRequired,
+  booking: PropTypes.object.isRequired,
+  getAllBookings: PropTypes.func.isRequired,
+  clearBookingsList: PropTypes.func.isRequired,
+};
 
 const styles = StyleSheet.create({
   container: {
@@ -73,16 +82,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const mapStateToProps = ({ booking }) => {
-  return {
-    booking
-  };
-};
+const mapStateToProps = ({ booking }) => ({
+  booking,
+});
 
-const mapDispatchToProps = (dispatch) => {
-  return bindActionCreators({
-    ...bookingActions,
-  }, dispatch);
-};
+const mapDispatchToProps = dispatch => bindActionCreators({
+  ...bookingActions,
+}, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyBookingListContainer);
