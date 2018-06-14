@@ -71,7 +71,6 @@ const AuthForm = ({
         onSubmitEditing={ handleSubmit }
         refName={ passwordRef }
         withRef
-        customTextStyle={{ height: 40 }}
       />
       <CustomButton
         buttonText={ buttonTitle }
