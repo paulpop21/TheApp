@@ -7,8 +7,9 @@ const defaultState = {
   loading: false,
 };
 
-const userReducer = async (state = defaultState, action) => {
+const userReducer = (state = defaultState, action) => {
   switch (action.type) {
+    case actionTypes.USER_PHOTO_UPLOAD_REQUEST:
     case actionTypes.USER_LOGIN_REQUEST:
     case actionTypes.USER_REGISTER_REQUEST: {
       return {
@@ -17,6 +18,7 @@ const userReducer = async (state = defaultState, action) => {
       };
     }
 
+    case actionTypes.USER_PHOTO_UPLOAD_SUCCESS:
     case actionTypes.USER_LOGIN_SUCCESS:
     case actionTypes.USER_REGISTER_SUCCESS: {
       const userDetails = {
@@ -24,12 +26,11 @@ const userReducer = async (state = defaultState, action) => {
         authToken: action.payload.headers['x-auth-token'],
       };
 
-      try {
-        await AsyncStorage.setItem('user', JSON.stringify(userDetails));
-      } catch (e) {
-        // eslint-disable-next-line
-        console.warn(e);
-      }
+      AsyncStorage.setItem('user', JSON.stringify(userDetails))
+        .catch((e) => {
+          // eslint-disable-next-line
+          console.warn(e);
+        });
 
       return {
         ...state,
@@ -45,6 +46,7 @@ const userReducer = async (state = defaultState, action) => {
       };
     }
 
+    case actionTypes.USER_PHOTO_UPLOAD_ERROR:
     case actionTypes.USER_LOGIN_ERROR:
     case actionTypes.USER_REGISTER_ERROR: {
       return {
@@ -54,12 +56,11 @@ const userReducer = async (state = defaultState, action) => {
     }
 
     case actionTypes.USER_LOGOUT: {
-      try {
-        await AsyncStorage.clear();
-      } catch (e) {
-        // eslint-disable-next-line
-        console.warn(e);
-      }
+      AsyncStorage.clear()
+        .catch((e) => {
+          // eslint-disable-next-line
+          console.warn(e);
+        });
 
       return {
         ...defaultState,

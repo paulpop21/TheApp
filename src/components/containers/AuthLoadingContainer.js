@@ -25,7 +25,7 @@ class AuthLoadingContainer extends Component {
     const user = await AsyncStorage.getItem('user');
 
     if (user) {
-      this.props.setUserDetails(user);
+      this.props.setUserDetails(JSON.parse(user));
     }
 
     this.props.navigation.navigate(user ? APP_STACK : AUTH_STACK);

@@ -6,6 +6,7 @@ import {
   AuthScreen,
   UserAuthScreen,
   MyBookingsScreen,
+  MyProfileScreen,
   BookingsScreen,
   BookingDetailsScreen,
   AuthLoadingScreen,
@@ -21,6 +22,7 @@ import {
   USER_AUTH_SCREEN,
   BOOKINGS_SCREEN,
   MY_BOOKINGS_SCREEN,
+  MY_PROFILE_SCREEN,
   BOOKINGS_DETAILS_SCREEN,
 } from '../constants/navigation';
 
@@ -56,6 +58,15 @@ const MyBookingStack = createStackNavigator(
   },
 );
 
+const MyProfileStack = createStackNavigator(
+  {
+    [MY_PROFILE_SCREEN]: MyProfileScreen,
+  },
+  {
+    initialRouteName: MY_PROFILE_SCREEN,
+  },
+);
+
 const routeConfig = {
   [BOOKINGS_SCREEN]: {
     screen: BookingStack,
@@ -82,7 +93,19 @@ const routeConfig = {
         );
       },
     },
-
+  },
+  [MY_PROFILE_SCREEN]: {
+    screen: MyProfileStack,
+    navigationOptions: {
+      drawerLabel: 'My Profile',
+      drawerIcon() {
+        return (
+          <CustomIconImage
+            source={ require('../assets/images/icons/profile.png') }
+          />
+        );
+      },
+    },
   },
 };
 

@@ -3,6 +3,7 @@ import AuthLoadingContainer from './AuthLoadingContainer';
 import BookingDetailsContainer from './BookingDetailsContainer';
 import BookingListContainer from './BookingListContainer';
 import MyBookingListContainer from './MyBookingListContainer';
+import MyProfileContainer from './MyProfileContainer';
 import UserAuthContainer from './UserAuthContainer';
 
 export {
@@ -11,5 +12,6 @@ export {
   BookingDetailsContainer,
   BookingListContainer,
   MyBookingListContainer,
+  MyProfileContainer,
   UserAuthContainer,
 };
