@@ -71,7 +71,6 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'red',
-    height: 20,
     width: 200,
   },
 });
