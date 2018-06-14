@@ -5,6 +5,7 @@ import BookingDetailsDatePicker from './BookingDetailsDatePicker';
 import BookingListItem from './BookingListItem';
 import BookingListSectionHeader from './BookingListSectionHeader';
 import CustomDrawerContentComponent from './CustomDrawerContentComponent';
+import MyProfile from './MyProfile';
 import CustomButton from './shared/CustomButton';
 import CustomDatePicker from './shared/CustomDatePicker';
 import CustomInput from './shared/CustomInput';
@@ -20,6 +21,7 @@ export {
   BookingListItem,
   BookingListSectionHeader,
   CustomDrawerContentComponent,
+  MyProfile,
   CustomButton,
   CustomDatePicker,
   CustomInput,

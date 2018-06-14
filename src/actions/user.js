@@ -2,6 +2,7 @@ import {
   USER_LOGIN_REQUEST,
   USER_REGISTER_REQUEST,
   USER_LOGOUT,
+  USER_PHOTO_UPLOAD_REQUEST,
   USER_SET_USER_DETAILS,
 } from '../constants/actionTypes';
 
@@ -23,6 +24,19 @@ export const registerUser = credentials => ({
       method: 'post',
       url: '/users/register',
       data: credentials,
+    },
+  },
+});
+
+export const uploadPhoto = photo => ({
+  type: USER_PHOTO_UPLOAD_REQUEST,
+  payload: {
+    request: {
+      method: 'put',
+      url: '/users/upload-photo',
+      data: {
+        photo,
+      },
     },
   },
 });
